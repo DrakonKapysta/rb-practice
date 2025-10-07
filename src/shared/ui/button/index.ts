@@ -1,2 +1,2 @@
-export { Button } from './button.component';
-export type { ButtonProps } from './button.component';
+export { Button } from "./button.component";
+export type { IButtonProps } from "./button.component";
