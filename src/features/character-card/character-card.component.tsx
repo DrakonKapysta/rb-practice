@@ -1,12 +1,8 @@
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { ICharacter } from "@/entities/models/rick-and-morty.model";
 import Image from "next/image";
 import Link from "next/link";
 import { getStatusColor } from "@/shared/lib";
-
-interface ICharacterCardProps {
-  character: ICharacter;
-}
+import { ICharacterCardProps } from "./character-card.interface";
 
 export const CharacterCard = ({ character }: ICharacterCardProps) => {
   return (

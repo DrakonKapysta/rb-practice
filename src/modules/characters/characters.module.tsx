@@ -1,12 +1,11 @@
 "use client";
 
-import { CharacterList } from "@/features";
 import { ICharacterFilters } from "@/entities/models/rick-and-morty.model";
+import { CharacterList, CharacterSearch } from "@/widgets";
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { CharacterSearch } from "@/features/character-search/character-search.component";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export const Characters = () => {
+export const CharactersModule = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 

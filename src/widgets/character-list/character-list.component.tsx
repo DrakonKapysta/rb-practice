@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, CharacterCard, Spinner } from "@/shared/ui";
+import { Button, Spinner } from "@/shared/ui";
 import { useRickAndMortyCharactersQuery } from "@/entities/api/rick-and-morty";
-import { FailedLoad } from "@/shared/ui/failed-load";
+import { FailedLoad } from "@/features/failed-load";
 import { ICharacterListProps } from "./character-list.interface";
+import { CharacterCard } from "@/features";
 
 export const CharacterList = ({
   filters,

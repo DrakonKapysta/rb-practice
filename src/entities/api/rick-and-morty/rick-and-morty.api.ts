@@ -21,7 +21,6 @@ class RickAndMortyAPI {
 
   async getCharacters(filters?: ICharacterFilters) {
     const searchParams = new URLSearchParams();
-
     if (filters) {
       Object.entries(filters).forEach(([key, value]) => {
         if (value) {

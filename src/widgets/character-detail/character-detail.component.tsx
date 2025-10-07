@@ -6,7 +6,7 @@ import { ICharacterDetailProps } from "./character-detail.interface";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Card, Spinner } from "@/shared";
-import { FailedLoad } from "@/shared/ui/failed-load";
+import { FailedLoad } from "@/features/failed-load";
 import { getStatusColor } from "@/shared/lib";
 
 export const CharacterDetail = ({ characterId }: ICharacterDetailProps) => {
