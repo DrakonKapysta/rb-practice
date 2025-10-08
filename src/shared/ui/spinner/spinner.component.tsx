@@ -1,3 +1,4 @@
+"use client";
 import { Spinner as HeroUISpinner } from "@heroui/react";
 
 export interface ISpinnerProps {
