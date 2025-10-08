@@ -1,35 +1,46 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { ICharacterSearchProps } from "./character-search.interface";
 import { Button, Input } from "@/shared";
 import { Select, SelectItem } from "@heroui/select";
 import { ICharacterFilters } from "@/entities";
 import { CharacterSearchService } from "./character-search.service";
+import { usePathname, useSearchParams } from "next/navigation";
 
-export const CharacterSearch = ({
-  onFiltersChange,
-  initialFilters,
-}: ICharacterSearchProps) => {
+export const CharacterSearch = () => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const filters = Object.fromEntries(
+    searchParams.entries()
+  ) as ICharacterFilters;
+
   const { register, handleSubmit, reset, getValues } =
     useForm<ICharacterFilters>({
       defaultValues: {
-        name: initialFilters?.name || "",
-        status: initialFilters?.status || "",
-        species: initialFilters?.species || "",
-        gender: initialFilters?.gender || "",
+        name: filters?.name || "",
+        status: filters?.status || "",
+        species: filters?.species || "",
+        gender: filters?.gender || "",
       },
     });
 
-  const onSubmit = (data: ICharacterFilters) => {
-    onFiltersChange({
-      ...(data as ICharacterFilters),
+  const onSubmit = async (data: ICharacterFilters) => {
+    const params = new URLSearchParams(searchParams);
+    Object.entries(data).forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
     });
+
+    window.history.pushState({}, "", `${pathname}?${params.toString()}`);
   };
 
   const handleClear = () => {
     reset();
-    onFiltersChange(CharacterSearchService.getDefaultFilters());
+    window.history.replaceState({}, "", `${pathname}`);
   };
 
   const hasFilters = CharacterSearchService.hasFilters(getValues());

@@ -10,9 +10,10 @@ import { rickAndMortyAPI } from "./rick-and-morty.api";
 
 export const useRickAndMortyCharactersQuery = (filters?: ICharacterFilters) => {
   return useQuery<ICharactersResponse>({
-    queryKey: ["rick-and-morty"],
+    queryKey: ["rick-and-morty", filters],
     queryFn: () => rickAndMortyAPI.getCharacters(filters),
     refetchOnWindowFocus: false,
+    staleTime: 30 * 1000,
   });
 };
 

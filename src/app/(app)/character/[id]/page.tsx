@@ -23,7 +23,6 @@ export default async function CharacterPage(
   await queryClient.prefetchQuery({
     queryKey: ["rick-and-morty", characterId],
     queryFn: () => rickAndMortyAPI.getCharacterById(characterId),
-    staleTime: 0,
   });
 
   if (isNaN(characterId) || characterId <= 0) {

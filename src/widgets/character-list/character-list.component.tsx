@@ -3,18 +3,21 @@
 import { Button, Spinner } from "@/shared/ui";
 import { useRickAndMortyCharactersQuery } from "@/entities/api/rick-and-morty";
 import { FailedLoad } from "@/features/failed-load";
-import { ICharacterListProps } from "./character-list.interface";
 import { CharacterCard } from "@/features";
+import { useSearchParams } from "next/navigation";
+import { ICharacterFilters } from "@/entities";
 
-export const CharacterList = ({
-  filters,
-  onLoadMore,
-  hasNextPage = false,
-  isLoadingMore = false,
-}: ICharacterListProps) => {
-  const { data, isLoading } = useRickAndMortyCharactersQuery(filters);
+export const CharacterList = () => {
+  const searchParams = useSearchParams();
 
-  if (isLoading) {
+  const filters = Object.fromEntries(
+    searchParams.entries()
+  ) as ICharacterFilters;
+
+  const { data, isLoading, isFetching } =
+    useRickAndMortyCharactersQuery(filters);
+
+  if (isLoading || (isFetching && !data)) {
     return <Spinner />;
   }
 
@@ -27,20 +30,19 @@ export const CharacterList = ({
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {data.results.map((character) => (
-          <CharacterCard key={character.id} character={character} />
+        {data.results.map((character, index) => (
+          <CharacterCard
+            key={character.id}
+            character={character}
+            isPriority={index < 4}
+          />
         ))}
       </div>
 
-      {hasNextPage && onLoadMore && (
+      {data.info.next && (
         <div className="flex justify-center">
-          <Button
-            onPress={onLoadMore}
-            isLoading={isLoadingMore}
-            color="primary"
-            variant="flat"
-          >
-            {isLoadingMore ? "Loading..." : "Load More"}
+          <Button color="primary" variant="flat">
+            Load More
           </Button>
         </div>
       )}

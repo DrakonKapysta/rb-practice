@@ -1,32 +1,17 @@
-"use client";
-
-import { ICharacterFilters } from "@/entities/models/rick-and-morty.model";
+import { rickAndMortyAPI } from "@/entities";
+import { getQueryClient } from "@/shared/lib";
 import { CharacterList, CharacterSearch } from "@/widgets";
 import { Card, CardBody, CardHeader } from "@heroui/card";
-import { useRouter, useSearchParams } from "next/navigation";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
 
-export const CharactersModule = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+export const CharactersModule = async () => {
+  const queryClient = getQueryClient();
 
-  const filters = Object.fromEntries(
-    searchParams.entries()
-  ) as ICharacterFilters;
-
-  const handleFiltersChange = (newFilters: ICharacterFilters) => {
-    const params = new URLSearchParams(searchParams);
-
-    Object.entries(newFilters).forEach(([key, value]) => {
-      if (value) {
-        params.set(key, value);
-      } else {
-        params.delete(key);
-      }
-    });
-
-    router.push(`?${params.toString()}`);
-  };
-
+  await queryClient.prefetchQuery({
+    queryKey: ["rick-and-morty", {}],
+    queryFn: () => rickAndMortyAPI.getCharacters({}),
+  });
   return (
     <div className="space-y-6">
       <Card>
@@ -35,15 +20,17 @@ export const CharactersModule = () => {
         </CardHeader>
         <CardBody>
           <div className="flex gap-4 items-end">
-            <CharacterSearch
-              onFiltersChange={handleFiltersChange}
-              initialFilters={filters}
-            />
+            <Suspense>
+              <CharacterSearch />
+            </Suspense>
           </div>
         </CardBody>
       </Card>
-
-      <CharacterList filters={filters} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <Suspense>
+          <CharacterList />
+        </Suspense>
+      </HydrationBoundary>
     </div>
   );
 };
