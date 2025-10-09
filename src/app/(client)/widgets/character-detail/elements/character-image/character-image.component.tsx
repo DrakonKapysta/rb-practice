@@ -1,12 +1,17 @@
-import { Card, CardHeader } from '@heroui/react'
 import Image from 'next/image'
-import { ICharacter } from '@/entities'
+import { FC } from 'react'
 
-interface ICharacterImageProps {
+import { Card, CardHeader } from '@heroui/react'
+
+import { ICharacter } from '@/app/(client)/entities/models'
+
+interface IProps {
   character: ICharacter
 }
 
-export const CharacterImage = ({ character }: ICharacterImageProps) => {
+const CharacterImageComponent: FC<Readonly<IProps>> = (props) => {
+  const { character } = props
+
   return (
     <Card>
       <CardHeader className='flex-col items-start px-4 pt-2 pb-0'>
@@ -24,3 +29,5 @@ export const CharacterImage = ({ character }: ICharacterImageProps) => {
     </Card>
   )
 }
+
+export default CharacterImageComponent

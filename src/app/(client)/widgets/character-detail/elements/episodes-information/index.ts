@@ -1,1 +1,1 @@
-export * from './episodes-information.component'
+export { default as EpisodesInformationComponent } from './episodes-information.component'

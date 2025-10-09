@@ -1,3 +1,7 @@
+export enum ERickAndMortyQueryKey {
+  RICK_AND_MORTY = 'rick-and-morty',
+}
+
 export interface ICharacter {
   id: number
   name: string

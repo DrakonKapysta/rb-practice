@@ -1,1 +1,1 @@
-export * from './character-header.component'
+export { default as CharacterHeaderComponent } from './character-header.component'

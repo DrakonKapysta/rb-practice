@@ -5,7 +5,6 @@ const robots = (): MetadataRoute.Robots => {
   return {
     rules: {
       userAgent: '*',
-      // allow: '/',
       disallow: ['/', '/admin', '/api', '/graphql'],
     },
   }

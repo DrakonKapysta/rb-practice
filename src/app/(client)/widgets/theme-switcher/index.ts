@@ -1,2 +1,1 @@
-export * from './theme-switcher.component'
-export * from './theme-switcher.constants'
+export { default as ThemeSwitcherComponent } from './theme-switcher.component'

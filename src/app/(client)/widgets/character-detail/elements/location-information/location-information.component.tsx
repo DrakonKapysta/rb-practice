@@ -1,11 +1,16 @@
-import { Card, CardBody, CardHeader } from '@heroui/react'
-import { ICharacter } from '@/entities'
+import { FC } from 'react'
 
-interface ILocationInformationProps {
+import { Card, CardBody, CardHeader } from '@heroui/react'
+
+import { ICharacter } from '@/app/(client)/entities/models'
+
+interface IProps {
   character: ICharacter
 }
 
-export const LocationInformation = ({ character }: ILocationInformationProps) => {
+const LocationInformationComponent: FC<Readonly<IProps>> = (props) => {
+  const { character } = props
+
   return (
     <Card>
       <CardHeader>
@@ -24,3 +29,5 @@ export const LocationInformation = ({ character }: ILocationInformationProps) =>
     </Card>
   )
 }
+
+export default LocationInformationComponent

@@ -1,1 +1,1 @@
-export * from './location-information.component'
+export { default as LocationInformationComponent } from './location-information.component'

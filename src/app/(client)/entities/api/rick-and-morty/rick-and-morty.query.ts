@@ -1,23 +1,24 @@
-'use client'
+import { queryOptions } from '@tanstack/react-query'
 
-import { ICharacter, ICharacterFilters, ICharactersResponse } from '@/entities/models/rick-and-morty.model'
-import { useQuery } from '@tanstack/react-query'
-import { rickAndMortyAPI } from './rick-and-morty.api'
+import {
+  ERickAndMortyQueryKey,
+  ICharacter,
+  ICharacterFilters,
+  ICharactersResponse,
+} from '@/app/(client)/entities/models'
 
-export const useRickAndMortyCharactersQuery = (filters?: ICharacterFilters) => {
-  return useQuery<ICharactersResponse>({
-    queryKey: ['rick-and-morty', filters],
-    queryFn: () => rickAndMortyAPI.getCharacters(filters),
-    refetchOnWindowFocus: false,
-    staleTime: 30 * 1000,
+import { RickAndMortyQueryApi } from './rick-and-morty.api'
+
+export const rickAndMortyQueryOptions = (filters?: ICharacterFilters) => {
+  return queryOptions<ICharactersResponse>({
+    queryKey: [ERickAndMortyQueryKey.RICK_AND_MORTY, filters],
+    queryFn: (params) => RickAndMortyQueryApi.getCharacters(filters, params),
   })
 }
 
-export const useRickAndMortyCharacterQuery = (id: number) => {
-  return useQuery<ICharacter>({
-    queryKey: ['rick-and-morty', id],
-    queryFn: () => rickAndMortyAPI.getCharacterById(id),
-    refetchOnWindowFocus: false,
-    staleTime: 30 * 1000,
+export const rickAndMortyByIdQueryOptions = (id: number) => {
+  return queryOptions<ICharacter>({
+    queryKey: [ERickAndMortyQueryKey.RICK_AND_MORTY, id],
+    queryFn: () => RickAndMortyQueryApi.getCharacterById(id),
   })
 }

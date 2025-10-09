@@ -1,11 +1,16 @@
-import { Card, CardBody, CardHeader } from '@heroui/react'
-import { ICharacter } from '@/entities'
+import { FC } from 'react'
 
-interface IEpisodesInformationProps {
+import { Card, CardBody, CardHeader } from '@heroui/react'
+
+import { ICharacter } from '@/app/(client)/entities/models'
+
+interface IProps {
   character: ICharacter
 }
 
-export const EpisodesInformation = ({ character }: IEpisodesInformationProps) => {
+const EpisodesInformationComponent: FC<Readonly<IProps>> = (props) => {
+  const { character } = props
+
   return (
     <Card>
       <CardHeader>
@@ -17,3 +22,5 @@ export const EpisodesInformation = ({ character }: IEpisodesInformationProps) =>
     </Card>
   )
 }
+
+export default EpisodesInformationComponent

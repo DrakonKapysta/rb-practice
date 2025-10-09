@@ -1,2 +1,2 @@
-export * from './rick-and-morty.query'
-export * from './rick-and-morty.api'
+export { RickAndMortyQueryApi } from './rick-and-morty.api'
+export { rickAndMortyByIdQueryOptions, rickAndMortyQueryOptions } from './rick-and-morty.query'

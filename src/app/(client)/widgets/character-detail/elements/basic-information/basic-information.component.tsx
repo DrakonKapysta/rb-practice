@@ -1,12 +1,17 @@
-import { Card, CardBody, CardHeader } from '@heroui/react'
-import { ICharacter } from '@/entities'
-import { getStatusColor } from '@/app/(client)/shared/lib'
+import { FC } from 'react'
 
-interface IBasicInformationProps {
+import { Card, CardBody, CardHeader } from '@heroui/react'
+
+import { ICharacter } from '@/app/(client)/entities/models'
+import { getCharacterStatusColorUtil } from '@/pkg/utils/character'
+
+interface IProps {
   character: ICharacter
 }
 
-export const BasicInformation = ({ character }: IBasicInformationProps) => {
+const BasicInformationComponent: FC<Readonly<IProps>> = (props) => {
+  const { character } = props
+
   return (
     <Card>
       <CardHeader>
@@ -15,7 +20,7 @@ export const BasicInformation = ({ character }: IBasicInformationProps) => {
       <CardBody className='space-y-3'>
         <div className='flex justify-between'>
           <span className='text-default-500'>Status:</span>
-          <span className={`font-medium ${getStatusColor(character.status)}`}>{character.status}</span>
+          <span className={`font-medium ${getCharacterStatusColorUtil(character.status)}`}>{character.status}</span>
         </div>
         <div className='flex justify-between'>
           <span className='text-default-500'>Species:</span>
@@ -33,3 +38,5 @@ export const BasicInformation = ({ character }: IBasicInformationProps) => {
     </Card>
   )
 }
+
+export default BasicInformationComponent

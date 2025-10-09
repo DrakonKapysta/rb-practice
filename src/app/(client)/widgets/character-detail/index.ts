@@ -1,2 +1,1 @@
-export { CharacterDetail } from './character-detail.component'
-export type { ICharacterDetailProps } from './character-detail.interface'
+export { default as CharacterDetailComponent } from './character-detail.component'

@@ -1,1 +1,1 @@
-export * from './character-image.component'
+export { default as CharacterImageComponent } from './character-image.component'

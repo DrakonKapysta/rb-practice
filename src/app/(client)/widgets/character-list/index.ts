@@ -1,2 +1,1 @@
-export { CharacterList } from './character-list.component'
-export type { ICharacterListProps } from './character-list.interface'
+export { default as CharacterListComponent } from './character-list.component'

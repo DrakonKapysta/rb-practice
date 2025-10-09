@@ -2,7 +2,8 @@
 
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ICharacter } from '@/entities'
+
+import { ICharacter } from '@/app/(client)/entities/models'
 
 interface VisitedCharactersState {
   visitedCharacters: ICharacter[]

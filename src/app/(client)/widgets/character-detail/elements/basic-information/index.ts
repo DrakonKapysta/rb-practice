@@ -1,1 +1,1 @@
-export * from './basic-information.component'
+export { default as BasicInformationComponent } from './basic-information.component'

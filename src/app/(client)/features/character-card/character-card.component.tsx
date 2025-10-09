@@ -1,22 +1,32 @@
 'use client'
-import { Card, CardBody, CardHeader } from '@heroui/card'
 import Image from 'next/image'
-import Link from 'next/link'
-import { getStatusColor } from '@/app/(client)/shared/lib'
-import { ICharacterCardProps } from './character-card.interface'
-import { useEffect, useState } from 'react'
-import { useVisitedCharacters } from '@/app/(client)/shared'
+import { FC, useEffect, useState } from 'react'
 
-export const CharacterCard = ({ character, isPriority }: ICharacterCardProps) => {
+import { Card, CardBody, CardHeader } from '@heroui/card'
+
+import { ICharacter } from '@/app/(client)/entities/models'
+import { useVisitedCharacters } from '@/app/(client)/shared/store'
+import { Link } from '@/pkg/libraries/locale'
+import { getCharacterStatusColorUtil } from '@/pkg/utils/character'
+
+interface IProps {
+  character: ICharacter
+  isPriority?: boolean
+}
+
+const CharacterCardComponent: FC<Readonly<IProps>> = (props) => {
+  const { character, isPriority } = props
+
   const [isMounted, setIsMounted] = useState(false)
+
   const addVisitedCharacter = useVisitedCharacters((state) => state.addVisitedCharacter)
   const isVisited = useVisitedCharacters((state) => state.isVisited)
-
-  const hasVisited = isMounted && isVisited(character.id)
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
+
+  const hasVisited = isMounted && isVisited(character.id)
 
   return (
     <Card className='w-full max-w-sm'>
@@ -38,11 +48,14 @@ export const CharacterCard = ({ character, isPriority }: ICharacterCardProps) =>
           {hasVisited && <span className='rounded-full bg-green-100 px-2 py-1 text-xs text-green-800'>Visited</span>}
         </div>
       </CardHeader>
+
       <CardBody className='overflow-visible py-2'>
         <div className='space-y-2'>
           <div className='flex items-center gap-2'>
             <span className='text-small text-default-500'>Status:</span>
-            <span className={`text-small font-medium ${getStatusColor(character.status)}`}>{character.status}</span>
+            <span className={`text-small font-medium ${getCharacterStatusColorUtil(character.status)}`}>
+              {character.status}
+            </span>
           </div>
           <div className='flex items-center gap-2'>
             <span className='text-small text-default-500'>Species:</span>
@@ -60,7 +73,7 @@ export const CharacterCard = ({ character, isPriority }: ICharacterCardProps) =>
         <div className='mt-4'>
           <Link
             href={`/character/${character.id}`}
-            className='text-primary text-small font-medium hover:underline'
+            className='text-primary text-small border-primary hover:bg-primary/10 rounded-md border px-2 py-2 font-medium hover:underline'
             onNavigate={() => {
               addVisitedCharacter(character)
             }}
@@ -72,3 +85,5 @@ export const CharacterCard = ({ character, isPriority }: ICharacterCardProps) =>
     </Card>
   )
 }
+
+export default CharacterCardComponent

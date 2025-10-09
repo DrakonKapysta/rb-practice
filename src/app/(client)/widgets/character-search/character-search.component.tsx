@@ -1,46 +1,43 @@
 'use client'
-
+import * as qs from 'qs-esm'
+import { FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input } from '@/app/(client)/shared'
-import { Select, SelectItem } from '@heroui/select'
-import { ICharacterFilters } from '@/entities'
+
+import { Button, Input, Select, SelectItem } from '@heroui/react'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { useQueryParams } from '@/app/(client)/shared/hooks'
+
+import { CharacterSearchSchema, ICharacterSearch } from './character-search.interface'
 import { CharacterSearchService } from './character-search.service'
-import { usePathname, useSearchParams } from 'next/navigation'
 
-export const CharacterSearch = () => {
-  const searchParams = useSearchParams()
-  const pathname = usePathname()
+interface IProps {}
 
-  const filters = Object.fromEntries(searchParams.entries()) as ICharacterFilters
+const CharacterSearchComponent: FC<Readonly<IProps>> = () => {
+  const { searchParams, changeQuery, push } = useQueryParams()
 
-  const { register, handleSubmit, reset, getValues } = useForm<ICharacterFilters>({
+  const filters = qs.parse(searchParams.toString()) as ICharacterSearch
+
+  const { register, handleSubmit, reset } = useForm<ICharacterSearch>({
     defaultValues: {
       name: filters?.name || '',
       status: filters?.status || '',
       species: filters?.species || '',
       gender: filters?.gender || '',
     },
+    resolver: zodResolver(CharacterSearchSchema),
   })
 
-  const onSubmit = async (data: ICharacterFilters) => {
-    const params = new URLSearchParams(searchParams)
-    Object.entries(data).forEach(([key, value]) => {
-      if (value) {
-        params.set(key, value)
-      } else {
-        params.delete(key)
-      }
-    })
+  const onSubmit = async (data: ICharacterSearch) => {
+    const queryParams = CharacterSearchService.transformFilters(data)
 
-    window.history.pushState({}, '', `${pathname}?${params.toString()}`)
+    changeQuery(queryParams)
   }
 
   const handleClear = () => {
     reset()
-    window.history.replaceState({}, '', `${pathname}`)
+    push('/')
   }
-
-  const hasFilters = CharacterSearchService.hasFilters(getValues())
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
@@ -69,12 +66,12 @@ export const CharacterSearch = () => {
         <Button type='submit' color='primary'>
           Search
         </Button>
-        {hasFilters && (
-          <Button type='button' color='default' variant='flat' onPress={handleClear}>
-            Clear Filters
-          </Button>
-        )}
+        <Button type='button' color='default' variant='flat' onPress={handleClear}>
+          Clear Filters
+        </Button>
       </div>
     </form>
   )
 }
+
+export default CharacterSearchComponent

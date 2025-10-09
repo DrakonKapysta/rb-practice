@@ -1,14 +1,30 @@
 'use client'
 
-import { useRickAndMortyCharacterQuery } from '@/entities/api/rick-and-morty'
-import { ICharacterDetailProps } from './character-detail.interface'
-import Link from 'next/link'
-import { Button, Spinner } from '@/app/(client)/shared'
-import { FailedLoad } from '@/app/(client)/features/failed-load'
-import { CharacterHeader, CharacterImage, BasicInformation, LocationInformation, EpisodesInformation } from './elements'
+import { FC } from 'react'
 
-export const CharacterDetail = ({ characterId }: ICharacterDetailProps) => {
-  const { data: character, isLoading, error } = useRickAndMortyCharacterQuery(characterId)
+import { Spinner } from '@heroui/react'
+import { useQuery } from '@tanstack/react-query'
+
+import { rickAndMortyByIdQueryOptions } from '@/app/(client)/entities/api'
+import { OopsMessageComponent } from '@/app/(client)/shared/ui'
+import { Link } from '@/pkg/libraries/locale'
+
+import {
+  BasicInformationComponent,
+  CharacterHeaderComponent,
+  CharacterImageComponent,
+  EpisodesInformationComponent,
+  LocationInformationComponent,
+} from './elements'
+
+interface IProps {
+  characterId: number
+}
+
+const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
+  const { characterId } = props
+
+  const { data: character, isLoading, error } = useQuery(rickAndMortyByIdQueryOptions(characterId))
 
   if (isLoading) {
     return <Spinner />
@@ -16,34 +32,36 @@ export const CharacterDetail = ({ characterId }: ICharacterDetailProps) => {
 
   if (error) {
     return (
-      <FailedLoad
+      <OopsMessageComponent
         message='Failed to load character details. Please try again.'
         back={
-          <Button as={Link} href='/' color='default' variant='flat'>
+          <Link href='/' className='text-default-500'>
             Back to Characters
-          </Button>
+          </Link>
         }
       />
     )
   }
 
   if (!character) {
-    return <FailedLoad message='Character not found.' className='text-default-500' />
+    return <OopsMessageComponent message='Character not found.' className='text-default-500' />
   }
 
   return (
     <div className='mx-auto max-w-4xl space-y-6'>
-      <CharacterHeader character={character} />
+      <CharacterHeaderComponent character={character} />
 
       <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
-        <CharacterImage character={character} />
+        <CharacterImageComponent character={character} />
 
         <div className='space-y-4'>
-          <BasicInformation character={character} />
-          <LocationInformation character={character} />
-          <EpisodesInformation character={character} />
+          <BasicInformationComponent character={character} />
+          <LocationInformationComponent character={character} />
+          <EpisodesInformationComponent character={character} />
         </div>
       </div>
     </div>
   )
 }
+
+export default CharacterDetailComponent
