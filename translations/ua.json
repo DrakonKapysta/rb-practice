@@ -1,0 +1,15 @@
+{
+  "not_found_title": "Не знайдено",
+  "not_found_description": "Сторінка, яку ви шукаєте, не існує.",
+  "not_found_button": "Повернутися назад",
+  "not_found_subcategories_description": "Продукти не знайдені.",
+  "back_to_top": "Повернутися до початку",
+  "user_clicks_count": "Вибрано {amount} користувачами цього місяця",
+  "more_info": "Більше інформації",
+  "less_info": "Менше інформації",
+  "show_more": "Показати більше",
+  "show_less": "Показати менше",
+  "product_price_btn": "Перевірити ціну",
+  "product_get_discount": "Отримайте знижку {discount}%",
+  "product_estimated_price": "Орієнтовна ціна"
+}
