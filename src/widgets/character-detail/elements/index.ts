@@ -1,5 +1,0 @@
-export * from "./character-image";
-export * from "./basic-information";
-export * from "./location-information";
-export * from "./episodes-information";
-export * from "./character-header";
