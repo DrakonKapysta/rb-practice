@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
+import { SentryBuildOptions, withSentryConfig } from '@sentry/nextjs'
 
 import { envServer } from '@/config/env'
 
@@ -103,4 +104,12 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withNextIntl(nextConfig)
+const sentryConfig: SentryBuildOptions = {
+  org: envServer.SENTRY_ORG,
+  project: envServer.SENTRY_PROJECT,
+  authToken: envServer.SENTRY_AUTH_TOKEN,
+
+  disableLogger: true,
+}
+
+export default withSentryConfig(withNextIntl(nextConfig), sentryConfig)
