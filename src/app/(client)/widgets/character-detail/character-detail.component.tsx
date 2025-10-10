@@ -1,13 +1,14 @@
 'use client'
 
+import { ArrowLeft, RotateCcw } from 'lucide-react'
 import { FC } from 'react'
 
-import { Spinner } from '@heroui/react'
+import { Button, Spinner } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
 import { rickAndMortyByIdQueryOptions } from '@/app/(client)/entities/api'
 import { OopsMessageComponent } from '@/app/(client)/shared/ui'
-import { Link } from '@/pkg/libraries/locale'
+import { Link, useRouter } from '@/pkg/libraries/locale'
 
 import {
   BasicInformationComponent,
@@ -24,6 +25,8 @@ interface IProps {
 const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   const { characterId } = props
 
+  const router = useRouter()
+
   const { data: character, isLoading, error } = useQuery(rickAndMortyByIdQueryOptions(characterId))
 
   if (isLoading) {
@@ -33,18 +36,33 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   if (error) {
     return (
       <OopsMessageComponent
-        message='Failed to load character details. Please try again.'
-        back={
-          <Link href='/' className='text-default-500'>
-            Back to Characters
-          </Link>
+        className='space-y-4'
+        message='Something went wrong. Failed to load character details.'
+        actions={
+          <Button variant='light' onPress={() => router.refresh()}>
+            <RotateCcw /> Try Again
+          </Button>
         }
       />
     )
   }
 
-  if (!character) {
-    return <OopsMessageComponent message='Character not found.' className='text-default-500' />
+  if (!character || character.error) {
+    return (
+      <OopsMessageComponent
+        message='Character not found.'
+        className='text-default-500 space-y-4'
+        actions={
+          <Link
+            href='/'
+            className='text-default-500 border-default-500 hover:bg-default-500/10 inline-flex rounded-md border px-2 py-2 font-medium hover:underline'
+          >
+            <ArrowLeft />
+            Back to Characters
+          </Link>
+        }
+      />
+    )
   }
 
   return (

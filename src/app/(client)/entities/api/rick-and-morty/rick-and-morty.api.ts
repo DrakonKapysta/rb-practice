@@ -1,6 +1,6 @@
-import { notFound } from 'next/navigation'
 import * as qs from 'qs-esm'
 
+import { captureException } from '@sentry/nextjs'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { ICharacter, ICharacterFilters, ICharactersResponse } from '@/app/(client)/entities/models'
@@ -19,20 +19,24 @@ export class RickAndMortyQueryApi {
 
       return data
     } catch (error) {
-      if (error instanceof Error && error.message.includes('404')) {
-        return { results: [], info: { count: 0, pages: 0, next: null, prev: null } }
-      }
+      captureException(error, {
+        tags: { query: queryString, function: 'RickAndMortyQueryApi.getCharacters', type: 'network_error' },
+      })
+
       throw error
     }
   }
 
   static async getCharacterById(id: number, options?: QueryFunctionContext): Promise<ICharacter> {
-    const data = await restApiFetcher.get(`character/${id}`, { signal: options?.signal }).json<ICharacter>()
+    try {
+      const data = await restApiFetcher.get(`character/${id}`, { signal: options?.signal }).json<ICharacter>()
 
-    if (!data) {
-      return notFound()
+      return data
+    } catch (error) {
+      captureException(error, {
+        tags: { characterId: id, function: 'RickAndMortyQueryApi.getCharacterById', type: 'network_error' },
+      })
+      throw error
     }
-
-    return data
   }
 }

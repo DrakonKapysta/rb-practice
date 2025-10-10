@@ -21,6 +21,7 @@ export interface ICharacter {
   episode: string[]
   url: string
   created: string
+  error?: string
 }
 
 export interface ICharactersResponse {
