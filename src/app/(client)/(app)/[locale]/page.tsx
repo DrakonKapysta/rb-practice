@@ -17,6 +17,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   setRequestLocale(locale)
 
   const queryClient = getQueryClient()
+
   await queryClient.prefetchQuery(rickAndMortyQueryOptions({}))
 
   return (

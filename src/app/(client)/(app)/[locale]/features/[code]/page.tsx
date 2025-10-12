@@ -9,7 +9,7 @@ import HomeModule from '@/app/(client)/modules/home/home.module'
 import { charactersFlags, showCharactersFooter, showCharactersHeader } from '@/pkg/integrations/growthbook/flags'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
-export const revalidate = 0
+export const revalidate = 120
 
 interface IProps extends PageProps<'/[locale]/features/[code]'> {}
 
@@ -34,12 +34,11 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div>
-        {headerCharacters && <p>header</p>}
+      {headerCharacters && <nav>header</nav>}
 
-        {footerCharacters && <p>footer</p>}
-      </div>
       <HomeModule />
+
+      {footerCharacters && <footer>footer</footer>}
     </HydrationBoundary>
   )
 }

@@ -1,5 +1,3 @@
-'server-only'
-
 import { Identify } from 'flags'
 import { dedupe, flag } from 'flags/next'
 
@@ -15,17 +13,17 @@ export class GrowthBookAdapter {
   private isInitialized: boolean = false
   private adapter!: ReturnType<typeof createGrowthbookAdapter>
 
-  private constructor() {}
+  private constructor() {
+    this.initialize()
+  }
 
   public static getInstance(): GrowthBookAdapter {
     if (!GrowthBookAdapter.instance) {
-      loggerUtil({ text: 'GrowthBookAdapter', value: 'initializing ...', isActiveOnProd: true })
+      loggerUtil({ text: 'GrowthBookAdapter', value: 'initializing ...' })
 
       const instance = new GrowthBookAdapter()
 
       GrowthBookAdapter.instance = instance
-
-      instance.initialize()
     }
 
     return GrowthBookAdapter.instance
