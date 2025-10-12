@@ -5,6 +5,7 @@ import createMiddleware from 'next-intl/middleware'
 import { routing } from '@/pkg/libraries/locale/routing'
 
 import { charactersFlags } from './pkg/integrations/growthbook/flags'
+import { updateSession } from './pkg/integrations/supabase'
 
 const featurePages = ['/features']
 
@@ -24,10 +25,13 @@ export async function middleware(req: NextRequest) {
     const code = await precompute(charactersFlags)
 
     const nextUrl = new URL(`${rewritePathname}/${code}`, req.url)
-    return NextResponse.rewrite(nextUrl, i18nRes)
+
+    const rewriteResponse = await updateSession(req, i18nRes)
+
+    return NextResponse.rewrite(nextUrl, rewriteResponse)
   }
 
-  return i18nRes
+  return await updateSession(req, i18nRes)
 }
 
 export const config = {

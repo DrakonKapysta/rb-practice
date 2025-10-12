@@ -11,8 +11,8 @@ const LayoutModule: FC<IProps> = (props) => {
   const { children } = props
 
   return (
-    <ContainerComponent className='flex-1' variant='main'>
-      <ThemeSwitcherComponent />
+    <ContainerComponent className='relative flex-1' variant='main'>
+      <ThemeSwitcherComponent className='absolute top-6 right-8' />
       {children}
     </ContainerComponent>
   )
