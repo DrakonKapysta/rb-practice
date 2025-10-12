@@ -18,7 +18,7 @@ interface IProps {
   params: Promise<{ locale: string }>
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 

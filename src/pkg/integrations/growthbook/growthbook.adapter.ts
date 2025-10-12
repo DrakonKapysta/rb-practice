@@ -1,0 +1,86 @@
+'server-only'
+
+import { Identify } from 'flags'
+import { dedupe, flag } from 'flags/next'
+
+import { Attributes, createGrowthbookAdapter, TrackingCallback } from '@flags-sdk/growthbook'
+
+import { envServer } from '@/config/env'
+import { loggerUtil } from '@/pkg/utils/logger'
+
+//TODO: fix singleton instance of GrowthBookAdapter not reflecting changed feature event after cache expires
+
+export class GrowthBookAdapter {
+  private static instance: GrowthBookAdapter
+  private isInitialized: boolean = false
+  private adapter!: ReturnType<typeof createGrowthbookAdapter>
+
+  private constructor() {}
+
+  public static getInstance(): GrowthBookAdapter {
+    if (!GrowthBookAdapter.instance) {
+      loggerUtil({ text: 'GrowthBookAdapter', value: 'initializing ...', isActiveOnProd: true })
+
+      const instance = new GrowthBookAdapter()
+
+      GrowthBookAdapter.instance = instance
+
+      instance.initialize()
+    }
+
+    return GrowthBookAdapter.instance
+  }
+
+  public initialize(): void {
+    if (this.isInitialized) return
+
+    this.adapter = createGrowthbookAdapter({
+      apiHost: envServer.GROWTHBOOK_API_HOST,
+      clientKey: envServer.GROWTHBOOK_CLIENT_KEY || '',
+      appOrigin: envServer.GROWTHBOOK_APP_ORIGIN,
+      initOptions: {
+        cacheSettings: {
+          staleTTL: 1000 * 30,
+          maxAge: 1000 * 60 * 2,
+          disableCache: false,
+          backgroundSync: false,
+          maxEntries: 100,
+          disableIdleStreams: true,
+          idleStreamInterval: 100000,
+          cacheKey: 'gbFeaturesCache',
+        },
+      },
+    })
+
+    this.adapter.initialize()
+
+    this.isInitialized = true
+  }
+
+  public getAdapter(): ReturnType<typeof createGrowthbookAdapter> | null {
+    if (!this.adapter) {
+      return null
+    }
+
+    return this.adapter
+  }
+
+  public setTrackingCallback(callback: TrackingCallback): void {
+    this.adapter.setTrackingCallback(callback)
+  }
+
+  public getFeature<T>(feature: string, defaultValue: T) {
+    const identify = dedupe((async ({ headers, cookies }) => {
+      return {
+        id: '129',
+      }
+    }) satisfies Identify<Attributes>)
+
+    return flag<T>({
+      key: feature,
+      defaultValue,
+      identify,
+      adapter: this.adapter.feature<T>(),
+    })
+  }
+}
