@@ -1,10 +1,31 @@
-import { NextRequest } from 'next/server'
+import { precompute } from 'flags/next'
+import { NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 
 import { routing } from '@/pkg/libraries/locale/routing'
 
+import { charactersFlags } from './pkg/integrations/growthbook/flags'
+
+const featurePages = ['/features']
+
 export async function middleware(req: NextRequest) {
   const i18nRes = createMiddleware(routing)(req)
+
+  const headerLocale = i18nRes.headers.get('x-middleware-request-x-next-intl-locale')
+
+  const [_, predefinedLocale, ...segments] = req.nextUrl.pathname.split('/')
+
+  const isLocaleProvided = headerLocale == predefinedLocale
+
+  const rewritePathname = isLocaleProvided ? req.nextUrl.pathname : `${headerLocale}${req.nextUrl.pathname}`
+  const pathWithoutLocale = '/' + segments.join('/')
+
+  if (featurePages.includes(pathWithoutLocale) || featurePages.includes(req.nextUrl.pathname)) {
+    const code = await precompute(charactersFlags)
+
+    const nextUrl = new URL(`${rewritePathname}/${code}`, req.url)
+    return NextResponse.rewrite(nextUrl, i18nRes)
+  }
 
   return i18nRes
 }

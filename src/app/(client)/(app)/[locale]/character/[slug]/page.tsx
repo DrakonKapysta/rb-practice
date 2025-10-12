@@ -13,9 +13,10 @@ export const revalidate = 30
 
 export async function generateStaticParams() {
   const characters = await RickAndMortyQueryApi.getCharacters()
-  return characters.results.map((character) => ({
+  const res = characters.results.map((character) => ({
     slug: character.id.toString(),
   }))
+  return res
 }
 
 const CharacterPage: FC<Readonly<IProps>> = async (props) => {
