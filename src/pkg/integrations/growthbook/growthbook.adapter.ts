@@ -4,16 +4,17 @@ import { dedupe, flag } from 'flags/next'
 import { Attributes, createGrowthbookAdapter, TrackingCallback } from '@flags-sdk/growthbook'
 
 import { envServer } from '@/config/env'
+import { createServerClient } from '@/pkg/integrations/supabase'
 import { loggerUtil } from '@/pkg/utils/logger'
 
-//TODO: fix singleton instance of GrowthBookAdapter not reflecting changed feature event after cache expires
+//TODO: fix singleton instance of GrowthBookAdapter is not reflecting changed feature event after cache expires
 
 export class GrowthBookAdapter {
   private static instance: GrowthBookAdapter
   private isInitialized: boolean = false
   private adapter!: ReturnType<typeof createGrowthbookAdapter>
 
-  private constructor() {
+  public constructor() {
     this.initialize()
   }
 
@@ -29,13 +30,14 @@ export class GrowthBookAdapter {
     return GrowthBookAdapter.instance
   }
 
-  public initialize(): void {
+  public async initialize(): Promise<void> {
     if (this.isInitialized) return
 
     this.adapter = createGrowthbookAdapter({
       apiHost: envServer.GROWTHBOOK_API_HOST,
       clientKey: envServer.GROWTHBOOK_CLIENT_KEY || '',
       appOrigin: envServer.GROWTHBOOK_APP_ORIGIN,
+
       initOptions: {
         cacheSettings: {
           staleTTL: 1000 * 30,
@@ -50,7 +52,7 @@ export class GrowthBookAdapter {
       },
     })
 
-    this.adapter.initialize()
+    await this.adapter.initialize()
 
     this.isInitialized = true
   }
@@ -67,10 +69,18 @@ export class GrowthBookAdapter {
     this.adapter.setTrackingCallback(callback)
   }
 
-  public getFeature<T>(feature: string, defaultValue: T) {
-    const identify = dedupe((async ({ headers, cookies }) => {
+  public getFeature<T>(feature: string, defaultValue: T, attributes?: Attributes) {
+    const identify = dedupe((async () => {
+      const supabase = await createServerClient()
+
+      const { data, error } = await supabase.auth.getUser()
+
+      if (error) {
+        return null
+      }
       return {
-        id: '129',
+        ...attributes,
+        id: data.user?.id,
       }
     }) satisfies Identify<Attributes>)
 
@@ -82,3 +92,5 @@ export class GrowthBookAdapter {
     })
   }
 }
+
+export const growthbookAdapter = GrowthBookAdapter.getInstance()

@@ -16,6 +16,9 @@ export const envServer = createEnv({
     GROWTHBOOK_APP_ORIGIN: z.string().optional(),
 
     FLAGS_SECRET: z.string().optional(),
+
+    MIXPANEL_TOKEN: z.string(),
+    MIXPANEL_HOST: z.string().optional(),
   },
   emptyStringAsUndefined: true,
   runtimeEnv: {
@@ -31,5 +34,8 @@ export const envServer = createEnv({
     GROWTHBOOK_APP_ORIGIN: process.env.GROWTHBOOK_APP_ORIGIN,
 
     FLAGS_SECRET: process.env.FLAGS_SECRET,
+
+    MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN,
+    MIXPANEL_HOST: process.env.MIXPANEL_HOST,
   },
 })

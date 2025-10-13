@@ -4,7 +4,7 @@ import createMiddleware from 'next-intl/middleware'
 
 import { routing } from '@/pkg/libraries/locale/routing'
 
-import { charactersFlags } from './pkg/integrations/growthbook/flags'
+import { charactersFlags } from './pkg/integrations/growthbook'
 import { updateSession } from './pkg/integrations/supabase'
 
 const featurePages = ['/features']

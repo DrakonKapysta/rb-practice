@@ -1,6 +1,5 @@
 import { Level, type Logger, pino } from 'pino'
 
-// interface
 interface IDebugUtil {
   text: string
   value: unknown
@@ -8,7 +7,6 @@ interface IDebugUtil {
   level?: Level
 }
 
-// logger util
 export const loggerUtil = (props: IDebugUtil) => {
   const { text, value, isActiveOnProd = false, level = 'info' } = props
 

@@ -4,15 +4,13 @@ import { SentryBuildOptions, withSentryConfig } from '@sentry/nextjs'
 
 import { envServer } from '@/config/env'
 
-// i18n
 const withNextIntl = createNextIntlPlugin({
   requestConfig: './src/pkg/libraries/locale/request.ts',
   experimental: {
-    createMessagesDeclaration: './translations/en.json',
+    createMessagesDeclaration: ['./translations/en.json', './translations/ua.json'],
   },
 })
 
-// next config
 const nextConfig: NextConfig = {
   output: 'standalone',
 

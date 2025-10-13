@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import AuthModule from '@/app/(client)/modules/auth/auth.module'
+import { AuthModule } from '@/app/(client)/modules/auth'
 
 interface IProps extends PageProps<'/[locale]/auth'> {}
 
