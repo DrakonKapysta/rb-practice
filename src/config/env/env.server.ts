@@ -19,6 +19,8 @@ export const envServer = createEnv({
 
     MIXPANEL_TOKEN: z.string(),
     MIXPANEL_HOST: z.string().optional(),
+
+    DATABASE_URL: z.string(),
   },
   emptyStringAsUndefined: true,
   runtimeEnv: {
@@ -37,5 +39,7 @@ export const envServer = createEnv({
 
     MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN,
     MIXPANEL_HOST: process.env.MIXPANEL_HOST,
+
+    DATABASE_URL: process.env.DATABASE_URL,
   },
 })
