@@ -5,8 +5,8 @@ import { FC } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { rickAndMortyQueryOptions } from '@/app/(client)/entities/api'
-import HomeModule from '@/app/(client)/modules/home/home.module'
-import { charactersFlags, showCharactersFooter, showCharactersHeader } from '@/pkg/integrations/growthbook/flags'
+import { HomeModule } from '@/app/(client)/modules/home'
+import { charactersFlags, showCharactersFooter, showCharactersHeader } from '@/pkg/integrations/growthbook'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
 export const revalidate = 120

@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 
-// robots
 const robots = (): MetadataRoute.Robots => {
   return {
     rules: {
