@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware'
 
 import { ICharacter } from '@/app/(client)/entities/models'
 
-interface VisitedCharactersState {
+interface GlobalState {
   visitedCharacters: ICharacter[]
   addVisitedCharacter: (character: ICharacter) => void
   clearVisitedCharacters: () => void
@@ -13,7 +13,7 @@ interface VisitedCharactersState {
   isVisited: (id: number) => boolean
 }
 
-export const useVisitedCharacters = create<VisitedCharactersState>()(
+export const useGlobalStore = create<GlobalState>()(
   persist(
     (set, get) => ({
       visitedCharacters: [],

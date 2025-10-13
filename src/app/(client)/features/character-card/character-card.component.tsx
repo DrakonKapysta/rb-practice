@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react'
 import { Card, CardBody, CardHeader } from '@heroui/card'
 
 import { ICharacter } from '@/app/(client)/entities/models'
-import { useVisitedCharacters } from '@/app/(client)/shared/store'
+import { useGlobalStore } from '@/app/(client)/shared/store'
 import { Link } from '@/pkg/libraries/locale'
 import { getCharacterStatusColorUtil } from '@/pkg/utils/character'
 
@@ -23,8 +23,8 @@ const CharacterCardComponent: FC<Readonly<IProps>> = (props) => {
 
   const [isMounted, setIsMounted] = useState(false)
 
-  const addVisitedCharacter = useVisitedCharacters((state) => state.addVisitedCharacter)
-  const isVisited = useVisitedCharacters((state) => state.isVisited)
+  const addVisitedCharacter = useGlobalStore((state) => state.addVisitedCharacter)
+  const isVisited = useGlobalStore((state) => state.isVisited)
 
   useEffect(() => {
     setIsMounted(true)

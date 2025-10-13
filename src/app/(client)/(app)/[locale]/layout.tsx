@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<Readonly<IProps>> = async (props) => {
   const { children, params } = await props
+
   const locale = (await params).locale
   if (!hasLocale(routing.locales, locale)) {
     notFound()

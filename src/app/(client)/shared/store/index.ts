@@ -1,1 +1,1 @@
-export * from './visited-characters.store'
+export * from './global.store'
