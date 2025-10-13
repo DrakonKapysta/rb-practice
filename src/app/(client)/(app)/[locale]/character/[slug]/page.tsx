@@ -24,11 +24,11 @@ const CharacterPage: FC<Readonly<IProps>> = async (props) => {
 
   const queryClient = getQueryClient()
 
-  await queryClient.prefetchQuery(rickAndMortyByIdQueryOptions(characterId))
-
   if (isNaN(characterId) || characterId <= 0) {
     notFound()
   }
+
+  await queryClient.prefetchQuery(rickAndMortyByIdQueryOptions(characterId))
 
   return (
     <div className='min-h-screen p-8 pb-20'>
