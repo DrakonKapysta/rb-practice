@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import * as qs from 'qs-esm'
 import { FC } from 'react'
 
@@ -15,6 +16,7 @@ interface IProps {}
 
 const CharacterListComponent: FC<Readonly<IProps>> = () => {
   const { searchParams } = useQueryParams()
+  const t = useTranslations('character.list')
 
   const filters = qs.parse(searchParams.toString())
 
@@ -39,7 +41,7 @@ const CharacterListComponent: FC<Readonly<IProps>> = () => {
       {data.info.next && (
         <div className='flex justify-center'>
           <Button color='primary' variant='flat'>
-            Load More
+            {t('load_more')}
           </Button>
         </div>
       )}

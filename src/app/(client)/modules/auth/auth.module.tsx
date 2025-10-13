@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC, useState } from 'react'
 
 import { Button } from '@heroui/react'
@@ -11,6 +12,7 @@ interface IProps {
 }
 
 const AuthModule: FC<Readonly<IProps>> = (props) => {
+  const tAuth = useTranslations('auth')
   const { defaultType = 'login' } = props
 
   const [formType, setFormType] = useState<(typeof props)['defaultType']>(defaultType)
@@ -25,7 +27,7 @@ const AuthModule: FC<Readonly<IProps>> = (props) => {
 
       <div className='bg-secondary -mt-2.5 rounded-b-2xl pt-4 pb-2 text-center'>
         <Button variant='light' onPress={handleToggleForm} size='lg'>
-          {formType === 'login' ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+          {formType === 'login' ? tAuth('login.dont_have_an_account') : tAuth('register.already_have_an_account')}
         </Button>
       </div>
     </div>

@@ -1,4 +1,5 @@
 'use client'
+import { useTranslations } from 'next-intl'
 import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -11,6 +12,7 @@ import { signup } from '@/pkg/integrations/supabase'
 import { RegisterFormSchema, RegisterFormSchemaType } from './register-form.interface'
 
 const RegisterFormComponent = () => {
+  const tRegister = useTranslations('auth.register')
   const [isPending, startTransition] = useTransition()
 
   const {
@@ -44,21 +46,33 @@ const RegisterFormComponent = () => {
   return (
     <Card className='w-full max-w-md'>
       <CardHeader className='flex flex-col gap-2 text-center'>
-        <h2 className='text-2xl font-bold'>Create Account</h2>
+        <h2 className='text-2xl font-bold'>{tRegister('title')}</h2>
 
-        <p className='text-default-500'>Sign up for a new account</p>
+        <p className='text-default-500'>{tRegister('subtitle')}</p>
       </CardHeader>
 
       <CardBody>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-          <EmailInput {...register('email')} error={errors.email?.message} />
+          <EmailInput
+            {...register('email')}
+            error={errors.email?.message}
+            placeholder={tRegister('email_placeholder')}
+          />
 
-          <PasswordInput {...register('password')} error={errors.password?.message} />
+          <PasswordInput
+            {...register('password')}
+            error={errors.password?.message}
+            placeholder={tRegister('password_placeholder')}
+          />
 
-          <PasswordInput {...register('confirmPassword')} error={errors.confirmPassword?.message} />
+          <PasswordInput
+            {...register('confirmPassword')}
+            error={errors.confirmPassword?.message}
+            placeholder={tRegister('confirm_password_placeholder')}
+          />
 
           <Button type='submit' isLoading={isPending} disabled={isPending}>
-            Register
+            {tRegister('button')}
           </Button>
         </form>
       </CardBody>

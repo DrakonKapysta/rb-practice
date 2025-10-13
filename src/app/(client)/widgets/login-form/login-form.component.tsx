@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { FC, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -14,6 +15,7 @@ import { LoginFormSchema, LoginFormSchemaType } from './login-form.interface'
 interface IProps {}
 
 const LoginFormComponent: FC<Readonly<IProps>> = () => {
+  const tLogin = useTranslations('auth.login')
   const [isPending, startTransition] = useTransition()
 
   const {
@@ -48,19 +50,23 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
   return (
     <Card className='w-full max-w-md'>
       <CardHeader className='flex flex-col gap-2 text-center'>
-        <h2 className='w-full text-2xl font-bold'>Welcome Back</h2>
+        <h2 className='w-full text-2xl font-bold'>{tLogin('title')}</h2>
 
-        <p className='text-default-500'>Sign in to your account</p>
+        <p className='text-default-500'>{tLogin('subtitle')}</p>
       </CardHeader>
 
       <CardBody>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
-          <EmailInput {...register('email')} error={errors.email?.message} />
+          <EmailInput {...register('email')} error={errors.email?.message} placeholder={tLogin('email_placeholder')} />
 
-          <PasswordInput {...register('password')} error={errors.password?.message} />
+          <PasswordInput
+            {...register('password')}
+            error={errors.password?.message}
+            placeholder={tLogin('password_placeholder')}
+          />
 
           <Button type='submit' isLoading={isPending}>
-            Login
+            {tLogin('button')}
           </Button>
         </form>
       </CardBody>

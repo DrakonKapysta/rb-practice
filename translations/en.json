@@ -1,11 +1,159 @@
 {
-  "not_found_title": "Not Found",
-  "not_found_description": "The page you are looking for does not exist.",
-  "not_found_button": "Go Back",
-  "not_found_subcategories_description": "Characters not found.",
-  "back_to_top": "Back to top",
-  "more_info": "More info",
-  "less_info": "Less info",
-  "show_more": "Show more",
-  "show_less": "Show less"
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "unknown": "Unknown",
+    "all": "All"
+  },
+  "navigation": {
+    "home": "Home",
+    "characters": "Characters",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings",
+    "menu": "Menu",
+    "close_menu": "Close menu"
+  },
+  "header": {
+    "title": "Rick & Morty",
+    "subtitle": "Character Explorer",
+    "language": "Language",
+    "switch_to_ukrainian": "Switch to Ukrainian",
+    "switch_to_english": "Switch to English"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "button": "Login",
+      "email_placeholder": "Enter your email",
+      "password_placeholder": "Enter your password",
+      "forgot_password": "Forgot password?",
+      "no_account": "Don't have an account?",
+      "sign_up": "Sign up"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Sign up for a new account",
+      "button": "Register",
+      "email_placeholder": "Enter your email",
+      "password_placeholder": "Enter your password",
+      "confirm_password_placeholder": "Confirm your password",
+      "has_account": "Already have an account?",
+      "sign_in": "Sign in"
+    },
+    "validation": {
+      "email_required": "Email is required",
+      "email_invalid": "Please enter a valid email address",
+      "password_required": "Password is required",
+      "password_min_length": "Password must be at least 6 characters",
+      "confirm_password_required": "Password confirmation is required",
+      "passwords_match": "Passwords must match"
+    }
+  },
+  "character": {
+    "search": {
+      "title": "Rick and Morty Characters",
+      "name_placeholder": "Enter character name...",
+      "species_placeholder": "Enter species...",
+      "status_label": "Select Status",
+      "gender_label": "Select Gender",
+      "clear_filters": "Clear Filters",
+      "no_results": "No characters found."
+    },
+    "list": {
+      "load_more": "Load More",
+      "total_results": "Total results"
+    },
+    "detail": {
+      "back_to_characters": "← Back to Characters",
+      "basic_information": "Basic Information",
+      "location_information": "Location Information",
+      "episodes": "Episodes",
+      "origin": "Origin",
+      "location": "Location",
+      "status": "Status",
+      "species": "Species",
+      "type": "Type",
+      "gender": "Gender",
+      "episode_count": "This character appears in {count} episode(s)",
+      "alive": "Alive",
+      "dead": "Dead",
+      "female": "Female",
+      "male": "Male",
+      "genderless": "Genderless"
+    },
+    "status": {
+      "alive": "Alive",
+      "dead": "Dead",
+      "unknown": "Unknown"
+    },
+    "gender": {
+      "female": "Female",
+      "male": "Male",
+      "genderless": "Genderless",
+      "unknown": "Unknown"
+    }
+  },
+  "home": {
+    "title": "Rick and Morty Characters",
+    "welcome": "Welcome to the Rick and Morty Character Database",
+    "description": "Explore the multiverse of characters from the hit animated series"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggle_tooltip": "Toggle theme"
+  },
+  "errors": {
+    "not_found": {
+      "title": "Not Found",
+      "description": "The page you are looking for does not exist.",
+      "button": "Go Back",
+      "characters_not_found": "Characters not found."
+    },
+    "generic": {
+      "title": "Oops! Something went wrong",
+      "description": "An unexpected error occurred. Please try again later.",
+      "retry": "Try Again"
+    },
+    "network": {
+      "title": "Connection Error",
+      "description": "Please check your internet connection and try again.",
+      "retry": "Retry"
+    }
+  },
+  "ui": {
+    "back_to_top": "Back to top",
+    "more_info": "More info",
+    "less_info": "Less info",
+    "show_more": "Show more",
+    "show_less": "Show less",
+    "loading": "Loading...",
+    "no_data": "No data available",
+    "empty_state": "Nothing to show here",
+    "visited": "Visited",
+    "view_details": "View Details →",
+    "accessibility": {
+      "toggle_password_visibility": "Toggle password visibility",
+      "close_modal": "Close modal",
+      "open_menu": "Open menu"
+    }
+  }
 }

@@ -1,3 +1,5 @@
+'use client'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { Card, CardBody, CardHeader } from '@heroui/react'
@@ -10,21 +12,22 @@ interface IProps {
 
 const LocationInformationComponent: FC<Readonly<IProps>> = (props) => {
   const { character } = props
+  const tCharacter = useTranslations('character')
 
   return (
     <Card>
       <CardHeader>
-        <h3 className='text-xl font-semibold'>Location Information</h3>
+        <h3 className='text-xl font-semibold'>{tCharacter('detail.location_information')}</h3>
       </CardHeader>
 
       <CardBody className='space-y-3'>
         <div>
-          <span className='text-default-500 block'>Origin:</span>
+          <span className='text-default-500 block'>{tCharacter('detail.origin')}:</span>
           <span className='font-medium'>{character.origin.name}</span>
         </div>
 
         <div>
-          <span className='text-default-500 block'>Current Location:</span>
+          <span className='text-default-500 block'>{tCharacter('detail.location')}:</span>
           <span className='font-medium'>{character.location.name}</span>
         </div>
       </CardBody>

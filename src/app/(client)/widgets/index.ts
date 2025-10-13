@@ -1,6 +1,7 @@
 export * from './character-detail'
 export * from './character-list'
 export * from './character-search'
+export * from './header'
 export * from './login-form'
 export * from './register-form'
 export * from './theme-switcher'

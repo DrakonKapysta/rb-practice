@@ -2,14 +2,162 @@
 // See: https://next-intl.dev/docs/workflows/typescript#messages-arguments
 
 declare const messages: {
-  "not_found_title": "Не знайдено",
-  "not_found_description": "Сторінка, яку ви шукаєте, не існує.",
-  "not_found_button": "Повернутися назад",
-  "not_found_subcategories_description": "Персонажі не знайдені.",
-  "back_to_top": "Повернутися до початку",
-  "more_info": "Більше інформації",
-  "less_info": "Менше інформації",
-  "show_more": "Показати більше",
-  "show_less": "Показати менше"
+  "common": {
+    "loading": "Завантаження...",
+    "error": "Помилка",
+    "success": "Успіх",
+    "cancel": "Скасувати",
+    "save": "Зберегти",
+    "delete": "Видалити",
+    "edit": "Редагувати",
+    "close": "Закрити",
+    "confirm": "Підтвердити",
+    "back": "Назад",
+    "next": "Далі",
+    "previous": "Попередня",
+    "search": "Пошук",
+    "filter": "Фільтр",
+    "clear": "Очистити",
+    "unknown": "Невідомо",
+    "all": "Всі"
+  },
+  "navigation": {
+    "home": "Головна",
+    "characters": "Персонажі",
+    "login": "Увійти",
+    "register": "Реєстрація",
+    "logout": "Вийти",
+    "profile": "Профіль",
+    "settings": "Налаштування",
+    "menu": "Меню",
+    "close_menu": "Закрити меню"
+  },
+  "header": {
+    "title": "Рік і Морті",
+    "subtitle": "Провідник персонажів",
+    "language": "Мова",
+    "switch_to_ukrainian": "Перемкнути на українську",
+    "switch_to_english": "Перемкнути на англійську"
+  },
+  "auth": {
+    "login": {
+      "title": "З поверненням",
+      "subtitle": "Увійдіть до свого облікового запису",
+      "button": "Увійти",
+      "email_placeholder": "Введіть вашу електронну пошту",
+      "password_placeholder": "Введіть ваш пароль",
+      "forgot_password": "Забули пароль?",
+      "no_account": "Немає облікового запису?",
+      "sign_up": "Зареєструватися"
+    },
+    "register": {
+      "title": "Створити обліковий запис",
+      "subtitle": "Зареєструйтеся для нового облікового запису",
+      "button": "Зареєструватися",
+      "email_placeholder": "Введіть вашу електронну пошту",
+      "password_placeholder": "Введіть ваш пароль",
+      "confirm_password_placeholder": "Підтвердіть ваш пароль",
+      "has_account": "Вже є обліковий запис?",
+      "sign_in": "Увійти"
+    },
+    "validation": {
+      "email_required": "Електронна пошта обов'язкова",
+      "email_invalid": "Будь ласка, введіть дійсну адресу електронної пошти",
+      "password_required": "Пароль обов'язковий",
+      "password_min_length": "Пароль повинен містити принаймні 6 символів",
+      "confirm_password_required": "Підтвердження пароля обов'язкове",
+      "passwords_match": "Паролі повинні співпадати"
+    }
+  },
+  "character": {
+    "search": {
+      "title": "Персонажі Ріка та Морті",
+      "name_placeholder": "Введіть ім'я персонажа...",
+      "species_placeholder": "Введіть вид...",
+      "status_label": "Оберіть статус",
+      "gender_label": "Оберіть стать",
+      "clear_filters": "Очистити фільтри",
+      "no_results": "Персонажі не знайдені."
+    },
+    "list": {
+      "load_more": "Завантажити більше",
+      "total_results": "Всього результатів"
+    },
+    "detail": {
+      "back_to_characters": "← Назад до персонажів",
+      "basic_information": "Основна інформація",
+      "location_information": "Інформація про місцезнаходження",
+      "episodes": "Епізоди",
+      "origin": "Походження",
+      "location": "Місцезнаходження",
+      "status": "Статус",
+      "species": "Вид",
+      "type": "Тип",
+      "gender": "Стать",
+      "episode_count": "Цей персонаж з'являється в {count} епізоді(ах)",
+      "alive": "Живий",
+      "dead": "Мертвий",
+      "female": "Жіноча",
+      "male": "Чоловіча",
+      "genderless": "Без статі"
+    },
+    "status": {
+      "alive": "Живий",
+      "dead": "Мертвий",
+      "unknown": "Невідомо"
+    },
+    "gender": {
+      "female": "Жіноча",
+      "male": "Чоловіча",
+      "genderless": "Без статі",
+      "unknown": "Невідомо"
+    }
+  },
+  "home": {
+    "title": "Персонажі Ріка та Морті",
+    "welcome": "Ласкаво просимо до бази даних персонажів Ріка та Морті",
+    "description": "Досліджуйте мультивсесвіт персонажів з популярного анімаційного серіалу"
+  },
+  "theme": {
+    "light": "Світла",
+    "dark": "Темна",
+    "system": "Системна",
+    "toggle_tooltip": "Перемкнути тему"
+  },
+  "errors": {
+    "not_found": {
+      "title": "Не знайдено",
+      "description": "Сторінка, яку ви шукаєте, не існує.",
+      "button": "Повернутися назад",
+      "characters_not_found": "Персонажі не знайдені."
+    },
+    "generic": {
+      "title": "Упс! Щось пішло не так",
+      "description": "Сталася неочікувана помилка. Будь ласка, спробуйте пізніше.",
+      "retry": "Спробувати знову"
+    },
+    "network": {
+      "title": "Помилка з'єднання",
+      "description": "Будь ласка, перевірте ваше інтернет-з'єднання та спробуйте знову.",
+      "retry": "Повторити"
+    }
+  },
+  "ui": {
+    "back_to_top": "Повернутися до початку",
+    "more_info": "Більше інформації",
+    "less_info": "Менше інформації",
+    "show_more": "Показати більше",
+    "show_less": "Показати менше",
+    "loading": "Завантаження...",
+    "no_data": "Дані недоступні",
+    "empty_state": "Тут нічого немає",
+    "visited": "Відвідано",
+    "view_details": "Переглянути деталі →",
+    "accessibility": {
+      "toggle_password_visibility": "Перемкнути видимість пароля",
+      "close_modal": "Закрити модальне вікно",
+      "open_menu": "Відкрити меню"
+    }
+  }
 };
 export default messages;

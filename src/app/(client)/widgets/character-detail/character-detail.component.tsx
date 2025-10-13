@@ -1,6 +1,7 @@
 'use client'
 
 import { ArrowLeft, RotateCcw } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
 import { Button, Spinner } from '@heroui/react'
@@ -26,6 +27,8 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   const { characterId } = props
 
   const router = useRouter()
+  const tErrors = useTranslations('errors')
+  const tCharacter = useTranslations('character.detail')
 
   const { data: character, isLoading, error } = useQuery(rickAndMortyByIdQueryOptions(characterId))
 
@@ -37,10 +40,10 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
     return (
       <OopsMessageComponent
         className='space-y-4'
-        message='Something went wrong. Failed to load character details.'
+        message={tErrors('generic.title')}
         actions={
           <Button variant='light' onPress={() => router.refresh()}>
-            <RotateCcw /> Try Again
+            <RotateCcw /> {tErrors('generic.retry')}
           </Button>
         }
       />
@@ -50,7 +53,7 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   if (!character || character.error) {
     return (
       <OopsMessageComponent
-        message='Character not found.'
+        message={tErrors('not_found.characters_not_found')}
         className='text-default-500 space-y-4'
         actions={
           <Link
@@ -58,7 +61,7 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
             className='text-default-500 border-default-500 hover:bg-default-500/10 inline-flex rounded-md border px-2 py-2 font-medium hover:underline'
           >
             <ArrowLeft />
-            Back to Characters
+            {tErrors('not_found.button')}
           </Link>
         }
       />
@@ -67,7 +70,7 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
 
   return (
     <div className='mx-auto max-w-4xl space-y-6'>
-      <CharacterHeaderComponent character={character} />
+      <CharacterHeaderComponent character={character} backToMessage={tCharacter('back_to_characters')} />
 
       <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
         <CharacterImageComponent character={character} />
