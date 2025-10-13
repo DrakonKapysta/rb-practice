@@ -1,6 +1,8 @@
-import { Link } from '@/pkg/libraries/locale'
-import { NavbarBrand, NavbarContent } from '@heroui/react'
 import { FC } from 'react'
+
+import { NavbarBrand, NavbarContent } from '@heroui/react'
+
+import { Link } from '@/pkg/libraries/locale'
 
 interface IProps {
   title: string

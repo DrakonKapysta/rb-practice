@@ -1,4 +1,7 @@
+import { relations } from 'drizzle-orm'
 import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core'
+
+import { comments } from './comments'
 
 export const characters = pgTable('characters', {
   id: serial('id').primaryKey(),
@@ -12,5 +15,10 @@ export const characters = pgTable('characters', {
   image: text('image').notNull(),
   episode: text('episode').notNull(),
   url: text('url').notNull(),
-  created: timestamp('created').notNull(),
+  createdAt: timestamp('created_at').notNull(),
+  updatedAt: timestamp('updated_at').notNull(),
 })
+
+export const charactersRelations = relations(characters, ({ many }) => ({
+  comments: many(comments),
+}))
