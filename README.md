@@ -1,4 +1,4 @@
-## 🚀 Features
+## Features
 
 - **Character Browsing**: Browse through all Rick and Morty characters with pagination
 - **Advanced Search**: Search characters by name, status, species, type, and gender
@@ -12,7 +12,7 @@
 - **Responsive Design**: Fully responsive design that works on all devices
 - **Performance Optimized**: Optimized image loading and font rendering
 
-## 🚦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
