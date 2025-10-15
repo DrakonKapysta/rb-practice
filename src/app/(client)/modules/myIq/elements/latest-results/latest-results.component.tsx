@@ -1,14 +1,14 @@
-import type { FC } from 'react'
-import US from 'country-flag-icons/react/3x2/US'
-import RO from 'country-flag-icons/react/3x2/RO'
 import BY from 'country-flag-icons/react/3x2/BY'
 import PL from 'country-flag-icons/react/3x2/PL'
+import RO from 'country-flag-icons/react/3x2/RO'
 import UA from 'country-flag-icons/react/3x2/UA'
+import US from 'country-flag-icons/react/3x2/US'
+import { useTranslations } from 'next-intl'
+import type { FC } from 'react'
 
 interface IProps {}
 
 const LATEST_RESULTS_ITEMS = {
-  title: 'Останні результати',
   items: [
     {
       name: 'Roman Kharchenko',
@@ -74,10 +74,12 @@ const COUNTRIES = {
 } as const
 
 const LatestResultsComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.latestResults')
+
   return (
     <section className='pt-6 md:pt-10'>
       <h3 className='text-secondary-800 text-center text-2xl leading-8 font-semibold md:text-4xl'>
-        {LATEST_RESULTS_ITEMS.title}
+        {t('latest_results_title')}
       </h3>
       <div className='[&>div>div] flex flex-wrap gap-6 pt-4 md:pt-6'>
         <div className='flex-1 [&>*:nth-child(even)]:bg-[#F6FBFF]'>

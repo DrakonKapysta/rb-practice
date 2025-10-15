@@ -1,5 +1,5 @@
-export { default as VisaIcon } from './visa.icon'
-export { default as MasterCardIcon } from './master-card.icon'
-export { default as PayPalIcon } from './pay-pal.icon'
 export { default as ApplePayIcon } from './apple-pay.icon'
 export { default as GooglePayIcon } from './google-pay.icon'
+export { default as MasterCardIcon } from './master-card.icon'
+export { default as PayPalIcon } from './pay-pal.icon'
+export { default as VisaIcon } from './visa.icon'

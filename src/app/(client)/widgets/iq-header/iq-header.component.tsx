@@ -1,11 +1,15 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { Button } from '@heroui/react'
 
 import { Link } from '@/pkg/libraries/locale'
+
 import { HeaderDrawerComponent } from './elements/header-drawer'
 
 const IqHeaderComponent = () => {
+  const t = useTranslations('myIq.header')
   return (
     <header className='text-foreground shadow-small bg-background/70 fixed z-50 w-full border-b-1 backdrop-blur-lg backdrop-saturate-150'>
       <div className='relative mx-auto flex h-16 max-w-7xl items-center gap-1 px-4 md:px-6'>
@@ -41,10 +45,10 @@ const IqHeaderComponent = () => {
 
         <div className='hidden flex-1 items-center justify-end gap-3 lg:flex'>
           <Button variant='ghost' radius='sm' color='primary' className='text-medium h-10.5'>
-            Увійти
+            {t('sign_in')}
           </Button>
           <Button radius='sm' color='primary' className='text-medium h-10.5'>
-            Розпочати тест
+            {t('start_test')}
           </Button>
         </div>
       </div>

@@ -1,13 +1,6 @@
-import {
-  BrainIcon,
-  BrainLampIcon,
-  CheckListIcon,
-  DetailedReportIcon,
-  MindPuzzleIcon,
-  RelationsHandsIcon,
-  RocketIcon,
-} from '@/app/(client)/shared/assets/icon'
 import { Check, Instagram, Linkedin, Twitter } from 'lucide-react'
+
+import { BrainIcon, BrainLampIcon, MindPuzzleIcon, RelationsHandsIcon } from '@/app/(client)/shared/assets/icon'
 
 export const AVAILABLE_TESTS = [
   {
@@ -81,24 +74,6 @@ export const COMMUNITY_LINKS = [
   { icon: <Twitter className='mx-[0.685rem] h-12 w-6' />, href: 'https://github.com/heroui-inc/heroui' },
   { icon: <Instagram className='mx-[0.685rem] h-12 w-6' />, href: 'https://github.com/heroui-inc/heroui' },
   { icon: <Linkedin className='mx-[0.685rem] h-12 w-6' />, href: 'https://github.com/heroui-inc/heroui' },
-]
-
-export const HOW_IT_WORKS = [
-  {
-    icon: <CheckListIcon />,
-    title: 'Пройдіть тест',
-    description: 'Отримайте неупереджений погляд на себе',
-  },
-  {
-    icon: <DetailedReportIcon />,
-    title: 'Отримайте детальний звіт',
-    description: 'Дізнайтеся свої сильні сторони та відкрийте сфери для розвитку',
-  },
-  {
-    icon: <RocketIcon />,
-    title: 'Розпочніть свою подорож',
-    description: 'Почніть покращуватися з експертними курсами та тренуванням мозку',
-  },
 ]
 
 export const BENEFITS = [

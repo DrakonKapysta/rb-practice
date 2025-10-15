@@ -1,13 +1,17 @@
 'use client'
-import { Button, Divider, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Link } from '@heroui/react'
-import { ChevronDown, Facebook, Github, Instagram, Twitter } from 'lucide-react'
+import { Facebook, Github, Instagram, Twitter } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import React, { FC } from 'react'
+
+import { Divider, Link } from '@heroui/react'
+
+import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
 import { ApplePayIcon, GooglePayIcon, MasterCardIcon, PayPalIcon, VisaIcon } from '@/app/(client)/shared/assets/icon'
 
 interface IProps {}
 
 const IqFooterComponent: FC<Readonly<IProps>> = () => {
-  const [selectedKey, setSelectedKey] = React.useState('Українська')
+  const t = useTranslations('myIq.footer')
 
   return (
     <footer className='z-10 mt-6 bg-[#001B36] py-6 lg:py-12'>
@@ -69,8 +73,8 @@ const IqFooterComponent: FC<Readonly<IProps>> = () => {
 
           <div className='flex flex-col md:flex-row md:gap-5'>
             <div className='mr-5 flex flex-col gap-4 font-semibold text-white'>
-              <p className='text-lg'>Служба підтримки</p>
-              <Link className='text-white'>Як скасувати підписку</Link>
+              <p className='text-lg'>{t('support_title')}</p>
+              <Link className='text-white'>{t('cancel_subscription')}</Link>
               <Link className='mb-4 flex max-w-fit items-center gap-2 rounded-full border px-4 py-2 text-white'>
                 <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' className='h-6 w-6 shrink-0'>
                   <path
@@ -89,7 +93,7 @@ const IqFooterComponent: FC<Readonly<IProps>> = () => {
                   ></path>
                 </svg>
                 <p className='text-sm whitespace-nowrap text-white'>
-                  <span>Служба підтримки</span>
+                  <span>{t('support_title')}</span>
                   <br />
                   24/7/365
                 </p>
@@ -97,19 +101,19 @@ const IqFooterComponent: FC<Readonly<IProps>> = () => {
             </div>
 
             <div className='flex flex-col gap-2 pr-10 [&>*]:text-white'>
-              <p className='pb-2 text-lg font-semibold'>Юридичні</p>
-              <Link>Політика конфіденційності</Link>
-              <Link>Умови та положення</Link>
-              <Link>Політика щодо файлів cookie</Link>
-              <Link>Політика відшкодування</Link>
+              <p className='pb-2 text-lg font-semibold'>{t('legal_title')}</p>
+              <Link>{t('privacy_policy')}</Link>
+              <Link>{t('terms_conditions')}</Link>
+              <Link>{t('cookie_policy')}</Link>
+              <Link>{t('refund_policy')}</Link>
             </div>
 
             <div className='flex flex-col gap-2 [&>*]:text-white'>
-              <p className='pb-2 text-lg font-semibold'>Про нас</p>
-              <Link>Довідковий центр</Link>
-              <Link>Блог</Link>
-              <Link>Відгуки</Link>
-              <Link>Ціни</Link>
+              <p className='pb-2 text-lg font-semibold'>{t('about_title')}</p>
+              <Link>{t('help_center')}</Link>
+              <Link>{t('blog')}</Link>
+              <Link>{t('reviews')}</Link>
+              <Link>{t('pricing')}</Link>
             </div>
           </div>
         </div>
@@ -118,39 +122,10 @@ const IqFooterComponent: FC<Readonly<IProps>> = () => {
 
         <div className='flex flex-col gap-6'>
           <div className='self-end'>
-            <Dropdown>
-              <DropdownTrigger>
-                <Button className='capitalize' variant='bordered'>
-                  {selectedKey}
-                  <ChevronDown size={18} />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label='Single selection example'
-                selectedKeys={selectedKey}
-                selectionMode='single'
-                variant='flat'
-                onSelectionChange={(key) => setSelectedKey(key as string)}
-              >
-                <DropdownItem key='ua'>Українська</DropdownItem>
-                <DropdownItem key='en'>English</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <LanguageSwitcherComponent />
           </div>
           <div className='flex flex-col gap-4 text-white lg:flex-row lg:justify-between'>
-            <p>
-              Авторське право © 2024-2025{' '}
-              <Link
-                href='https://www.reddit.com/r/self/comments/1ijwwei/just_received_myiq_score_and_had_a_reality_check/ '
-                title='myiq'
-                target='_blank'
-                className='text-white'
-              >
-                myIQ
-              </Link>
-              ™. Усі права захищено. Усі торгові марки, згадані тут, є власністю їхніх відповідних власників.
-            </p>
+            <p>{t('copyright')} © 2024-2025 </p>
             <div className='flex gap-2 lg:self-end'>
               <div className='flex h-8 w-[2.875rem] items-center justify-center rounded-lg bg-white p-0.5'>
                 <VisaIcon />

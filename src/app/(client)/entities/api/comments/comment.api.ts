@@ -5,8 +5,8 @@ import { unstable_cache } from 'next/cache'
 
 import { captureException } from '@sentry/nextjs'
 
-import { comments, db, withPagination } from '@/pkg/libraries/db'
 import { ICommentsFilters } from '@/app/(client)/entities/models'
+import { comments, db, withPagination } from '@/pkg/libraries/db'
 
 export class CommentApi {
   static async getCommentById(commentId: number) {

@@ -1,52 +1,55 @@
 'use client'
 
-import { Card, CardBody, ScrollShadow } from '@heroui/react'
+import { useMessages, useTranslations } from 'next-intl'
 import { FC } from 'react'
 
-interface IProps {
-  title: string
-  items: {
-    description: string
-  }[]
-}
+import { Card, CardBody, ScrollShadow } from '@heroui/react'
 
-const BenefitsComponent: FC<Readonly<IProps>> = (props) => {
-  const { title, items } = props
+interface IProps {}
+
+const BenefitsComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.benefits')
+  const messages = useMessages()
+  const itemKeys = Object.keys(messages.myIq.benefits.benefits_items)
 
   return (
     <div className='relative z-0 flex flex-col gap-2 py-6 md:py-10'>
-      <h4 className='text-center text-2xl font-semibold md:text-4xl'>{title}</h4>
+      <h4 className='text-center text-2xl font-semibold md:text-4xl'>{t('benefits_title')}</h4>
       <ScrollShadow
         hideScrollBar
         className='flex w-[calc(100vw-3rem)] gap-6 pt-5'
         offset={100}
         orientation='horizontal'
       >
-        {items.map((item, index) => (
-          <Card key={index + item.description} radius='sm' className='max-w-58 shrink-0 border border-[#D9E7FF]'>
-            <CardBody className='flex-row gap-3 px-4 py-6'>
-              <div>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='none'
-                  viewBox='0 0 22 22'
-                  className='h-[22px] min-w-[22px]'
-                >
-                  <path
-                    fill='#007AFF'
-                    d='M21.3 11a1.53 1.53 0 0 0-.57-1.194L19.378 8.68l.62-1.611a1.544 1.544 0 0 0-1.195-2.067l-1.735-.3-.27-1.705a1.545 1.545 0 0 0-2.067-1.194l-1.651.609-1.086-1.343a1.583 1.583 0 0 0-2.388 0L8.479 2.422l-1.61-.62A1.545 1.545 0 0 0 4.8 2.999l-.299 1.735L2.797 5a1.545 1.545 0 0 0-1.194 2.068l.609 1.652L.869 9.805a1.545 1.545 0 0 0 0 2.388l1.353 1.127-.62 1.61a1.545 1.545 0 0 0 1.195 2.068l1.734.3.27 1.705a1.545 1.545 0 0 0 2.067 1.194l1.652-.61 1.086 1.343a1.545 1.545 0 0 0 2.388 0l1.126-1.353 1.611.62a1.544 1.544 0 0 0 2.068-1.194l.3-1.736L18.801 17a1.545 1.545 0 0 0 1.195-2.068l-.609-1.652 1.343-1.085A1.53 1.53 0 0 0 21.3 11'
-                  ></path>
-                  <path
-                    fill='#F5F5F5'
-                    d='M9.39 14.537a2.23 2.23 0 0 1-1.344-.446l-1.82-1.366a.75.75 0 1 1 .899-1.2l1.821 1.366a.755.755 0 0 0 1.043-.14l4.344-5.587a.75.75 0 1 1 1.185.922l-4.346 5.586a2.26 2.26 0 0 1-1.782.865'
-                  ></path>
-                </svg>
-              </div>
+        {itemKeys.map((key) => {
+          return (
+            <Card key={key} radius='sm' className='max-w-58 shrink-0 border border-[#D9E7FF]'>
+              <CardBody className='flex-row gap-3 px-4 py-6'>
+                <div>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 22 22'
+                    className='h-[22px] min-w-[22px]'
+                  >
+                    <path
+                      fill='#007AFF'
+                      d='M21.3 11a1.53 1.53 0 0 0-.57-1.194L19.378 8.68l.62-1.611a1.544 1.544 0 0 0-1.195-2.067l-1.735-.3-.27-1.705a1.545 1.545 0 0 0-2.067-1.194l-1.651.609-1.086-1.343a1.583 1.583 0 0 0-2.388 0L8.479 2.422l-1.61-.62A1.545 1.545 0 0 0 4.8 2.999l-.299 1.735L2.797 5a1.545 1.545 0 0 0-1.194 2.068l.609 1.652L.869 9.805a1.545 1.545 0 0 0 0 2.388l1.353 1.127-.62 1.61a1.545 1.545 0 0 0 1.195 2.068l1.734.3.27 1.705a1.545 1.545 0 0 0 2.067 1.194l1.652-.61 1.086 1.343a1.545 1.545 0 0 0 2.388 0l1.126-1.353 1.611.62a1.544 1.544 0 0 0 2.068-1.194l.3-1.736L18.801 17a1.545 1.545 0 0 0 1.195-2.068l-.609-1.652 1.343-1.085A1.53 1.53 0 0 0 21.3 11'
+                    ></path>
+                    <path
+                      fill='#F5F5F5'
+                      d='M9.39 14.537a2.23 2.23 0 0 1-1.344-.446l-1.82-1.366a.75.75 0 1 1 .899-1.2l1.821 1.366a.755.755 0 0 0 1.043-.14l4.344-5.587a.75.75 0 1 1 1.185.922l-4.346 5.586a2.26 2.26 0 0 1-1.782.865'
+                    ></path>
+                  </svg>
+                </div>
 
-              <p className='text-secondary-800/80 block flex-1 text-start text-sm'>{item.description}</p>
-            </CardBody>
-          </Card>
-        ))}
+                <p className='text-secondary-800/80 block flex-1 text-start text-sm'>
+                  {t(`benefits_items.${key}.description`)}
+                </p>
+              </CardBody>
+            </Card>
+          )
+        })}
       </ScrollShadow>
       <div className='absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'></div>
     </div>
