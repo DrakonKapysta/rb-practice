@@ -1,0 +1,6 @@
+export * from './how-it-works'
+export * from './available-tests'
+export * from './improve-skills'
+export * from './benefits'
+export * from './community'
+export * from './plan'
