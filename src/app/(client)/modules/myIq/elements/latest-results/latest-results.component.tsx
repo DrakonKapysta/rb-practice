@@ -1,3 +1,4 @@
+'use client'
 import BY from 'country-flag-icons/react/3x2/BY'
 import PL from 'country-flag-icons/react/3x2/PL'
 import RO from 'country-flag-icons/react/3x2/RO'

@@ -265,7 +265,7 @@ declare const messages: {
       "start_journey_description": "Почніть покращуватися з експертними курсами та тренуванням мозку"
     },
     "benefits": {
-      "benefits_title": "Переваги",
+      "benefits_title": "Що ви отримаєте",
       "benefits_items": {
         "certification": {
           "description": "Сертифікація інтелекту з автентифікацією, підтверджена експертами з когнітивних наук"

@@ -1,4 +1,3 @@
-'use client'
 import { MyIqModule } from '@/app/(client)/modules/myIq'
 
 const Page = () => {

@@ -1,30 +1,28 @@
-'use client'
-
-import { FacebookIcon, InstagramIcon, TwitterIcon } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { FC } from 'react'
 
-import { Link } from '@heroui/react'
+import { MetaIcon, InstagramIcon, FacebookIcon } from '@/app/(client)/shared/assets/icon'
+import { getTranslations } from 'next-intl/server'
+import { Link } from '@/pkg/libraries/locale'
 
 interface IProps {}
 
 const links = [
   {
-    icon: <FacebookIcon className='mx-[0.685rem] h-12 w-6' />,
-    href: 'https://www.facebook.com/rubylabs.io',
+    icon: <MetaIcon className='mx-[0.685rem] h-12 w-6' />,
+    href: 'https://www.twitter.com/',
   },
   {
     icon: <InstagramIcon className='mx-[0.685rem] h-12 w-6' />,
-    href: 'https://www.instagram.com/rubylabs.io',
+    href: 'https://www.instagram.com/',
   },
   {
-    icon: <TwitterIcon className='mx-[0.685rem] h-12 w-6' />,
-    href: 'https://www.twitter.com/rubylabs.io',
+    icon: <FacebookIcon className='mx-[0.685rem] h-12 w-6' />,
+    href: 'https://www.facebook.com/',
   },
 ]
 
-const CommunityComponent: FC<Readonly<IProps>> = () => {
-  const t = useTranslations('myIq.community')
+const CommunityComponent: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations('myIq.community')
 
   return (
     <section className='text-secondary-800/70 relative z-0 flex flex-col items-center justify-between gap-3 py-6 md:flex-row md:py-10'>
@@ -39,12 +37,11 @@ const CommunityComponent: FC<Readonly<IProps>> = () => {
         {links.map((link, index) => (
           <Link
             key={link.href + index}
-            className='max-h-12 rounded-xl border border-[#007AFF] bg-white px-3 shadow-md md:px-6'
-            isExternal
-            showAnchorIcon
-            anchorIcon={link.icon}
+            className='text-secondary-800 max-h-12 rounded-xl border border-[#007AFF] bg-white px-3 shadow-md md:px-6'
             href={link.href}
-          />
+          >
+            {link.icon}
+          </Link>
         ))}
       </div>
       <div className='absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'></div>

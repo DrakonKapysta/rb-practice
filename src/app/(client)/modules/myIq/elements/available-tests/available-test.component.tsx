@@ -62,13 +62,13 @@ const AvailableTestComponent: FC<Readonly<IProps>> = () => {
                   </span>
                 </div>
                 <Button
-                  radius='sm'
+                  radius='md'
                   color='primary'
-                  className='h-12 w-full px-8 py-2 text-sm whitespace-normal xl:text-base'
+                  className='h-12 w-full px-6 py-2 text-sm whitespace-normal xl:text-base'
                   isDisabled={index === itemKeys.length - 1}
                   endContent={
                     index !== itemKeys.length - 1 && (
-                      <LucideArrowRight className='h-4.5 w-4.5' size={18} strokeWidth={3} />
+                      <LucideArrowRight className='h-4.5 w-4.5' size={16} strokeWidth={3} />
                     )
                   }
                 >

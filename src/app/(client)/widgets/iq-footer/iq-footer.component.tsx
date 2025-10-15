@@ -1,12 +1,22 @@
 'use client'
-import { Facebook, Github, Instagram, Twitter } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import React, { FC } from 'react'
 
 import { Divider, Link } from '@heroui/react'
 
 import { LanguageSwitcherComponent } from '@/app/(client)/features/language-switcher'
-import { ApplePayIcon, GooglePayIcon, MasterCardIcon, PayPalIcon, VisaIcon } from '@/app/(client)/shared/assets/icon'
+import {
+  ApplePayIcon,
+  FacebookIcon,
+  GooglePayIcon,
+  InstagramIcon,
+  MasterCardIcon,
+  MetaIcon,
+  PayPalIcon,
+  RedditIcon,
+  SupportIcon,
+  VisaIcon,
+} from '@/app/(client)/shared/assets/icon'
 
 interface IProps {}
 
@@ -57,42 +67,27 @@ const IqFooterComponent: FC<Readonly<IProps>> = () => {
             </Link>
             <ul className='flex gap-4 text-white'>
               <li>
-                <Twitter />
+                <RedditIcon />
               </li>
               <li>
-                <Instagram />
+                <MetaIcon />
               </li>
               <li>
-                <Facebook />
+                <InstagramIcon />
               </li>
               <li>
-                <Github />
+                <FacebookIcon />
               </li>
             </ul>
           </div>
 
-          <div className='flex flex-col md:flex-row md:gap-5'>
-            <div className='mr-5 flex flex-col gap-4 font-semibold text-white'>
+          <div className='flex flex-col font-medium md:flex-row md:gap-10'>
+            <div className='mr-5 flex flex-col gap-4 font-semibold text-white md:mr-16'>
               <p className='text-lg'>{t('support_title')}</p>
-              <Link className='text-white'>{t('cancel_subscription')}</Link>
-              <Link className='mb-4 flex max-w-fit items-center gap-2 rounded-full border px-4 py-2 text-white'>
-                <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' className='h-6 w-6 shrink-0'>
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2z'
-                  ></path>
-                  <path
-                    stroke='currentColor'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    strokeWidth='2'
-                    d='M21 16v2a4 4 0 0 1-4 4h-5'
-                  ></path>
-                </svg>
-                <p className='text-sm whitespace-nowrap text-white'>
+              <Link className='font-medium text-white'>{t('cancel_subscription')}</Link>
+              <Link className='mb-4 flex max-w-fit items-center gap-2 rounded-4xl border-2 px-4 py-2 text-white'>
+                <SupportIcon />
+                <p className='text-sm font-medium whitespace-nowrap text-white'>
                   <span>{t('support_title')}</span>
                   <br />
                   24/7/365
@@ -120,7 +115,7 @@ const IqFooterComponent: FC<Readonly<IProps>> = () => {
 
         <Divider className='bg-default-500 mt-4' />
 
-        <div className='flex flex-col gap-6'>
+        <div className='flex flex-col gap-2'>
           <div className='self-end'>
             <LanguageSwitcherComponent />
           </div>
