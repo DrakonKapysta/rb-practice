@@ -30,6 +30,7 @@
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-query-devtools": "^5.90.2",
     "@types/rtl-detect": "^1.0.3",
+    "country-flag-icons": "^1.5.21",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.6",
     "flags": "^4.0.1",

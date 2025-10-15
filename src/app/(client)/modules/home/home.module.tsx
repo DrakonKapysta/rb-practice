@@ -12,7 +12,7 @@ const HomeModule: FC<Readonly<IProps>> = () => {
   const t = useTranslations('home')
 
   return (
-    <div className='min-h-screen pb-12'>
+    <div className='mx-auto min-h-screen pb-12'>
       <div className='space-y-6'>
         <Card>
           <CardHeader>

@@ -158,6 +158,221 @@ declare const messages: {
       "close_modal": "Close modal",
       "open_menu": "Open menu"
     }
+  },
+  "myIq": {
+    "header": {
+      "sign_in": "Sign in",
+      "start_test": "Start test"
+    },
+    "hero": {
+      "title_part1": "Want to Know Your Real",
+      "title_part2": "IQ score?",
+      "description": "Take our IQ test and unlock your path to self-discovery and development",
+      "start_test_button": "Start IQ test now",
+      "how_it_works_button": "How it works",
+      "excellent_reviews": "Excellent user reviews",
+      "tests_completed_today": "IQ tests taken today!"
+    },
+    "drawer": {
+      "how_it_works": "How It Works",
+      "areas_of_growth": "Growth Areas",
+      "interesting_facts": "Interesting Facts",
+      "help_and_support": "Help & support",
+      "sign_in": "Sign in",
+      "start_test": "Start test"
+    },
+    "sections": {
+      "how_it_works": "How it works",
+      "how_it_works_items": {
+        "take_test": {
+          "icon": "checklist",
+          "title": "Take the test",
+          "description": "Get an unbiased look at yourself"
+        },
+        "get_report": {
+          "icon": "report",
+          "title": "Get a detailed report",
+          "description": "Learn your strengths and discover areas for development"
+        },
+        "start_journey": {
+          "icon": "rocket",
+          "title": "Start your journey",
+          "description": "Start improving with expert courses and brain training"
+        }
+      }
+    },
+    "availableTests": {
+      "iq_test_title": "IQ / Intelligence Test",
+      "iq_test_description": "Each test reveals a new part of you. Starting with intelligence, new tests coming soon",
+      "available_tests_items": {
+        "iq_test": {
+          "title": "IQ / Intelligence Test",
+          "button_title": "Start IQ test now"
+        },
+        "personality_test": {
+          "title": "Personality Type",
+          "button_title": "Start personality test"
+        },
+        "love_style_test": {
+          "title": "Love Style",
+          "description": "Get an unbiased look at yourself",
+          "button_title": "Start love style test"
+        },
+        "career_test": {
+          "title": "Career",
+          "button_title": "Coming soon"
+        }
+      },
+      "time": "minutes",
+      "questions": "questions"
+    },
+    "improveSkills": {
+      "improve_skills_title": "Boost Your Abilities",
+      "improve_skills_description": "Unlock your potential with our comprehensive training package",
+      "improve_skills_items": {
+        "video_course": {
+          "title": "Expert Video Courses",
+          "subitems": {
+            "training_hours": "20+ hours of expert training",
+            "easy_lessons": "Easy to understand lessons",
+            "own_pace": "Learn at your own pace",
+            "track_progress": "Track your progress"
+          }
+        },
+        "brain_games": {
+          "title": "Brain Training Games",
+          "subitems": {
+            "various_exercises": "Diverse cognitive training exercises",
+            "progressive_levels": "Progressive difficulty levels",
+            "improve_skills": "Improve 5 core mental skills: Memory, logical reasoning, problem solving mastery, focus and concentration."
+          }
+        },
+        "puzzles": {
+          "title": "Puzzles",
+          "subitems": {
+            "puzzles_count": "150+ Intelligence-boosting puzzles",
+            "smart_progression": "Smart difficulty progression",
+            "master_functions": "Master essential brain functions: Pattern Recognition, Strategic Thinking, Analytical Reasoning."
+          }
+        }
+      }
+    },
+    "howItWorks": {
+      "take_test_title": "Take the test",
+      "take_test_description": "Get an unbiased view of yourself",
+      "get_report_title": "Get a detailed report",
+      "get_report_description": "Learn your strengths and discover areas for growth",
+      "start_journey_title": "Start your journey",
+      "start_journey_description": "Start improving with expert courses and brain training"
+    },
+    "benefits": {
+      "benefits_title": "Benefits",
+      "benefits_items": {
+        "certification": {
+          "description": "Authenticated intelligence certification validated by cognitive science experts"
+        },
+        "analysis": {
+          "description": "Deep-dive analysis revealing your complete cognitive potential and capabilities"
+        },
+        "training_tools": {
+          "description": "Scientifically-calibrated training tools designed by neuroscience specialists"
+        },
+        "educational_content": {
+          "description": "Expert-crafted educational content based on leading cognitive research"
+        },
+        "thinking_exercises": {
+          "description": "Advanced reasoning exercises designed by neural specialists"
+        }
+      }
+    },
+    "community": {
+      "community_title": "Community",
+      "community_description": "Follow us on social media for daily quizzes, challenges and brain teasers to keep your mind sharp",
+      "community_mobile_description": "Follow us on social media"
+    },
+    "plans": {
+      "plans_title": "Explore our plans",
+      "plans_button": "Get started",
+      "plans_pricing_page_description_part1": "Visit our",
+      "plans_pricing_page_description_part2": "pricing page",
+      "plans_pricing_page_description_part3": "for more details",
+      "plans_description": "Discover our flexible offers and choose the one that best suits your learning and personal development journey",
+      "plans_items": {
+        "two_week": {
+          "title": "TWO WEEK SUBSCRIPTION",
+          "price": "$724.99",
+          "period": "2 weeks",
+          "benefits": {
+            "trial": "7-day trial, then automatically renews to a two-week plan",
+            "certificate": "Personalized IQ certificate",
+            "analysis": "Comprehensive cognitive analysis",
+            "full_access": "Full access to development tools"
+          }
+        },
+        "monthly": {
+          "title": "MONTHLY SUBSCRIPTION",
+          "price": "$1448.99",
+          "period": "month",
+          "benefits": {
+            "max_savings": "Maximum savings on long-term growth",
+            "complete_kit": "Complete cognitive assessment suite",
+            "expert_courses": "20+ hours of expert-led courses",
+            "personalized_path": "Personalized development path"
+          }
+        }
+      }
+    },
+    "faq": {
+      "faq_title": "Frequently Asked Questions",
+      "faq_items": {
+        "question1": {
+          "title": "What if I'm not satisfied with the program?",
+          "answer": "We're confident that you'll see the value and benefits of myIQ, but if you're not satisfied or you are experiencing technical issues, you might be eligible for refund. See our Refund Policy to learn more."
+        },
+        "question2": {
+          "title": "How do I cancel my subscription?",
+          "answer": "Canceling is simple and takes less than a few minutes. Visit our Help Center and follow the instructions. You'll maintain access until the end of your current billing period."
+        },
+        "question3": {
+          "title": "How long does the IQ test take?",
+          "answer": "Our IQ test takes up to 20 minutes to complete. Each test must be finished in one sitting and cannot be paused, as this ensures the most accurate results. Please plan for uninterrupted time before starting any test."
+        },
+        "question4": {
+          "title": "Can I retake tests?",
+          "answer": "Yes! You can retake tests after completing recommended training modules to track your progress and improvement over time."
+        },
+        "question5": {
+          "title": "Can I access myIQ on multiple devices?",
+          "answer": "Yes! Your subscription works across all devices - smartphones, tablets, and computers. Your progress automatically syncs everywhere you log in."
+        },
+        "question6": {
+          "title": "Is my data secure?",
+          "answer": "We take your privacy seriously. Your data is stored securely and compliant with all applicable laws. Data is encrypted using bank-level security, and we never share your personal information with third parties. Your payment information is processed according to PCI-DSS industry standards. You can read more in our Privacy Policy."
+        }
+      }
+    },
+    "latestResults": {
+      "latest_results_title": "Latest Results"
+    },
+    "footer": {
+      "support_title": "Support",
+      "cancel_subscription": "How to cancel subscription",
+      "support_247": "Support",
+      "support_availability": "24/7/365",
+      "legal_title": "Legal",
+      "privacy_policy": "Privacy Policy",
+      "terms_conditions": "Terms and Conditions",
+      "cookie_policy": "Cookie Policy",
+      "refund_policy": "Refund Policy",
+      "about_title": "About us",
+      "help_center": "Help Center",
+      "blog": "Blog",
+      "reviews": "Reviews",
+      "pricing": "Pricing",
+      "language_ua": "Ukrainian",
+      "language_en": "English",
+      "copyright": "Copyright © 2024-2025 myIQ™. All rights reserved. All trademarks referenced herein are the properties of their respective owners."
+    }
   }
 };
 export default messages;
