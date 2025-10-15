@@ -76,7 +76,7 @@ const CharacterCardComponent: FC<Readonly<IProps>> = (props) => {
             <span className='text-small line-clamp-1 font-medium'>{character.origin.name}</span>
           </div>
         </div>
-        <div className='mt-4'>
+        <div className='my-4'>
           <Link
             href={`/character/${character.id}`}
             className='text-primary text-small border-primary hover:bg-primary/10 rounded-md border px-2 py-2 font-medium hover:underline'

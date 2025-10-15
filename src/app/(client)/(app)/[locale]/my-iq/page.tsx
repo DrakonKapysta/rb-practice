@@ -1,12 +1,12 @@
-import { AboutSectionComponent } from '@/app/(client)/widgets/my-iq/about-section'
-import { HeroSectionComponent } from '@/app/(client)/widgets/my-iq/hero-section'
+'use client'
+import { MyIqModule } from '@/app/(client)/modules/myIq'
+import { IqHeroSectionComponent } from '@/app/(client)/widgets'
 
 const Page = () => {
   return (
     <main className='mx-auto w-full max-w-7xl px-4 pt-16 md:px-6'>
-      <HeroSectionComponent />
-
-      <AboutSectionComponent />
+      <IqHeroSectionComponent />
+      <MyIqModule />
     </main>
   )
 }
