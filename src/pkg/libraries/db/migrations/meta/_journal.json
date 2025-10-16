@@ -15,6 +15,13 @@
       "when": 1760352856749,
       "tag": "0001_rainy_pepper_potts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1760614552353,
+      "tag": "0002_long_lizard",
+      "breakpoints": true
     }
   ]
 }

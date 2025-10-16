@@ -71,7 +71,7 @@ const RegisterFormComponent = () => {
             placeholder={tRegister('confirm_password_placeholder')}
           />
 
-          <Button type='submit' isLoading={isPending} disabled={isPending}>
+          <Button variant='solid' color='primary' type='submit' isLoading={isPending} disabled={isPending}>
             {tRegister('button')}
           </Button>
         </form>

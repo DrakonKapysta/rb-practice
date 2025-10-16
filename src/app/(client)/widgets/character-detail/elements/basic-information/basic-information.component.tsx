@@ -17,7 +17,7 @@ const BasicInformationComponent: FC<Readonly<IProps>> = (props) => {
   const tCharacter = useTranslations('character')
 
   return (
-    <Card>
+    <Card className='text-secondary-500'>
       <CardHeader>
         <h3 className='text-xl font-semibold'>{tCharacter('detail.basic_information')}</h3>
       </CardHeader>

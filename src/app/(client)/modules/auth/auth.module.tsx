@@ -25,9 +25,9 @@ const AuthModule: FC<Readonly<IProps>> = (props) => {
     <div className='w-full max-w-md'>
       {formType === 'login' ? <LoginFormComponent /> : <RegisterFormComponent />}
 
-      <div className='bg-secondary -mt-2.5 rounded-b-2xl pt-4 pb-2 text-center'>
+      <div className='bg-default-200 -mt-2.5 rounded-b-2xl pt-4 pb-2 text-center'>
         <Button variant='light' onPress={handleToggleForm} size='lg'>
-          {formType === 'login' ? tAuth('login.dont_have_an_account') : tAuth('register.already_have_an_account')}
+          {formType === 'login' ? tAuth('login.no_account') : tAuth('register.has_account')}
         </Button>
       </div>
     </div>

@@ -65,7 +65,7 @@ const LoginFormComponent: FC<Readonly<IProps>> = () => {
             placeholder={tLogin('password_placeholder')}
           />
 
-          <Button type='submit' isLoading={isPending}>
+          <Button variant='solid' color='primary' type='submit' isLoading={isPending}>
             {tLogin('button')}
           </Button>
         </form>

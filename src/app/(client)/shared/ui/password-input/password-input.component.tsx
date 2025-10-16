@@ -3,13 +3,14 @@
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 
-import { Button, Input, InputProps } from '@heroui/react'
+import { Button, cn, Input, InputProps } from '@heroui/react'
 
 interface IProps extends InputProps {
   error?: string
 }
 
 const PasswordInputComponent = forwardRef<HTMLInputElement, IProps>((props, ref) => {
+  const { error, className, ...rest } = props
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   const handleToggleVisibility = () => {
@@ -22,8 +23,16 @@ const PasswordInputComponent = forwardRef<HTMLInputElement, IProps>((props, ref)
         ref={ref}
         type={isVisible ? 'text' : 'password'}
         variant='bordered'
-        isRequired
-        {...props}
+        className={cn('text-secondary-500', className)}
+        classNames={{
+          input: cn(
+            'text-secondary-500',
+            'autofill:text-secondary-500',
+            'autofill:[-webkit-text-fill-color:hsl(var(--heroui-secondary-500))]',
+            'autofill:shadow-[inset_0_0_0px_1000px_rgb(255_255_255)]',
+          ),
+        }}
+        {...rest}
         endContent={
           <Button onPress={handleToggleVisibility} className='left-2.5' variant='light' size='sm'>
             {isVisible ? (
@@ -34,7 +43,7 @@ const PasswordInputComponent = forwardRef<HTMLInputElement, IProps>((props, ref)
           </Button>
         }
       />
-      {props.error && <p className='text-red-500'>{props.error}</p>}
+      {error && <p className='text-red-500'>{error}</p>}
     </div>
   )
 })

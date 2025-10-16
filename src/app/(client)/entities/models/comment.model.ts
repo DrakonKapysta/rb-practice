@@ -1,3 +1,8 @@
+export enum ECommentQueryKey {
+  COMMENTS = 'comments',
+  COMMENTS_CHARACTER_ID = 'comments-character-id',
+}
+
 export interface IComment {
   id: number
   content: string
@@ -5,8 +10,15 @@ export interface IComment {
   userId: string
 }
 
-export interface ICommentsResponse {
-  comments: IComment[]
+export interface ICommentMutationResult {
+  success: boolean
+  error?: string
+  result?: IComment
+}
+
+export interface ICreateComment {
+  content: string
+  characterId: number
 }
 
 export interface ICommentsFilters {

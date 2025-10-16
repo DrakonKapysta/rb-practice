@@ -18,6 +18,7 @@ import {
   EpisodesInformationComponent,
   LocationInformationComponent,
 } from './elements'
+import CharacterCommentFormComponent from '../../features/character-comment-form/character-commnet-form.component'
 
 interface IProps {
   characterId: number
@@ -69,7 +70,7 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   return (
-    <div className='mx-auto max-w-4xl space-y-6'>
+    <div className='mx-auto mt-8 max-w-4xl space-y-6'>
       <CharacterHeaderComponent character={character} backToMessage={tCharacter('back_to_characters')} />
 
       <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
@@ -81,6 +82,8 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
           <EpisodesInformationComponent character={character} />
         </div>
       </div>
+
+      <CharacterCommentFormComponent characterId={characterId} />
     </div>
   )
 }

@@ -33,7 +33,7 @@ const CharacterCardComponent: FC<Readonly<IProps>> = (props) => {
   const hasVisited = isMounted && isVisited(character.id)
 
   return (
-    <Card className='w-full max-w-sm'>
+    <Card className='text-secondary-500 w-full max-w-sm'>
       <CardHeader className='flex-col items-start px-4 pt-2 pb-0'>
         <div className='relative mb-2 h-48 w-full'>
           <Image
