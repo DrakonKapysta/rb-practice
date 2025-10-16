@@ -161,12 +161,12 @@ declare const messages: {
   },
   "myIq": {
     "header": {
-      "sign_in": "Sign in",
-      "start_test": "Start test"
+      "sign_in": "Login",
+      "start_test": "Start Test"
     },
     "hero": {
-      "title_part1": "Want to Know Your Real",
-      "title_part2": "IQ score?",
+      "title_part1": "Want to Know Your",
+      "title_part2": "Real IQ score?",
       "description": "Take our IQ test and unlock your path to self-discovery and development",
       "start_test_button": "Start IQ test now",
       "how_it_works_button": "How it works",
@@ -355,13 +355,13 @@ declare const messages: {
       "latest_results_title": "Latest Results"
     },
     "footer": {
-      "support_title": "Support",
+      "support_title": "Customer Support",
       "cancel_subscription": "How to cancel subscription",
-      "support_247": "Support",
+      "support_247": "Customer Support",
       "support_availability": "24/7/365",
       "legal_title": "Legal",
       "privacy_policy": "Privacy Policy",
-      "terms_conditions": "Terms and Conditions",
+      "terms_conditions": "Terms & Conditions",
       "cookie_policy": "Cookie Policy",
       "refund_policy": "Refund Policy",
       "about_title": "About us",

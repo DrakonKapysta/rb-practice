@@ -1,7 +1,7 @@
+import { getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { MetaIcon, InstagramIcon, FacebookIcon } from '@/app/(client)/shared/assets/icon'
-import { getTranslations } from 'next-intl/server'
+import { FacebookIcon, InstagramIcon, MetaIcon } from '@/app/(client)/shared/assets/icon'
 import { Link } from '@/pkg/libraries/locale'
 
 interface IProps {}

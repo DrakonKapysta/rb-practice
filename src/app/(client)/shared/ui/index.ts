@@ -1,3 +1,6 @@
+export * from './avatar'
+export * from './button'
+export * from './card'
 export * from './container'
 export * from './email-input'
 export * from './not-found'

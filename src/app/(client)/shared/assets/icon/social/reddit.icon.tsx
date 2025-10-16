@@ -1,5 +1,6 @@
-import { cn } from '@heroui/react'
 import { FC } from 'react'
+
+import { cn } from '@heroui/react'
 
 interface IProps {
   className?: string
