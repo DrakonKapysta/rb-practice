@@ -2,18 +2,22 @@
 
 import { FC } from 'react'
 import { useForm } from 'react-hook-form'
+
+import { addToast, Button, Input } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CreateCommentFormSchema, ICreateCommentForm } from './character-commnet-form.interface'
-import { Button, Input } from '@heroui/react'
 import { useMutation } from '@tanstack/react-query'
+
 import { CreateCommentMutationOptions } from '@/app/(client)/entities/api/comments'
+
+import { CreateCommentFormSchema, ICreateCommentForm } from './character-commnet-form.interface'
 
 interface IProps {
   characterId: number
 }
 
 const CharacterCommentFormComponent: FC<Readonly<IProps>> = ({ characterId }) => {
-  const { mutate: createComment, isPending } = useMutation(CreateCommentMutationOptions())
+  const { mutateAsync: createComment, isPending, error } = useMutation(CreateCommentMutationOptions())
+
   const {
     register,
     handleSubmit,
@@ -30,7 +34,22 @@ const CharacterCommentFormComponent: FC<Readonly<IProps>> = ({ characterId }) =>
   })
 
   const onSubmit = async (data: ICreateCommentForm) => {
-    createComment(data, { onSuccess: () => reset() })
+    await createComment(data)
+
+    if (error) {
+      return addToast({
+        title: 'Error',
+        description: 'An error occurred while creating the comment',
+        color: 'danger',
+      })
+    }
+
+    addToast({
+      title: 'Success',
+      description: 'Comment created successfully',
+      color: 'success',
+    })
+    reset()
   }
 
   const isCommentSending = isSubmitting || isLoading || isPending

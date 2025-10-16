@@ -56,8 +56,8 @@ const config: Config = {
               700: '#3f3f46',
               800: '#27272a',
               900: '#18181b',
-              DEFAULT: '#ffffff', // Change from '#27272a' to white
-              foreground: '#2B2D42', // Adjust text color accordingly
+              DEFAULT: '#ffffff',
+              foreground: '#2B2D42',
             },
             content1: '#ffffff',
             content2: '#f4f4f5',

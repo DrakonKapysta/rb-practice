@@ -18,7 +18,8 @@ import {
   EpisodesInformationComponent,
   LocationInformationComponent,
 } from './elements'
-import CharacterCommentFormComponent from '../../features/character-comment-form/character-commnet-form.component'
+import { CharacterCommentFormComponent } from '@/app/(client)/features/character-comment-form'
+import { CharacterCommentComponent } from '@/app/(client)/features/character-comment'
 
 interface IProps {
   characterId: number
@@ -84,6 +85,7 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
       </div>
 
       <CharacterCommentFormComponent characterId={characterId} />
+      <CharacterCommentComponent characterId={characterId} />
     </div>
   )
 }

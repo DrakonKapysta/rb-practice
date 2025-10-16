@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { rickAndMortyByIdQueryOptions, RickAndMortyQueryApi } from '@/app/(client)/entities/api'
+import { rickAndMortyByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
 import { CharacterDetailComponent } from '@/app/(client)/widgets'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
@@ -12,7 +12,7 @@ interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
 export const revalidate = 30
 
 export async function generateStaticParams() {
-  const characters = await RickAndMortyQueryApi.getCharacters()
+  const characters = await getCharacters()
   const res = characters.results.map((character) => ({
     slug: character.id.toString(),
   }))
