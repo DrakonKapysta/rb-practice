@@ -1,9 +1,9 @@
 import mixpanel from 'mixpanel'
 
 import { envClient, envServer } from '@/config/env'
+import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
 import { MixpanelEventName, MixpanelEventProperties } from './mixpanel.types'
-import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
 export class MixpanelServer {
   private static instance: MixpanelServer

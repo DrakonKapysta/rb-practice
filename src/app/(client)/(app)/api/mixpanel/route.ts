@@ -1,6 +1,7 @@
+import { NextRequest, NextResponse } from 'next/server'
+
 import { mixpanelServer } from '@/pkg/integrations/mixpanel'
 import { loggerUtil } from '@/pkg/utils/logger'
-import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   try {

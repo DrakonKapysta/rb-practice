@@ -1,12 +1,13 @@
 import { Identify } from 'flags'
 import { dedupe, flag } from 'flags/next'
+import { after } from 'next/server'
 
 import { Attributes, createGrowthbookAdapter, TrackingCallback } from '@flags-sdk/growthbook'
 
 import { envServer } from '@/config/env'
 import { createServerClient } from '@/pkg/integrations/supabase'
 import { loggerUtil } from '@/pkg/utils/logger'
-import { after } from 'next/server'
+
 import { experimantBatchQueue } from './experimant-batch-queue'
 
 export class GrowthBookAdapter {

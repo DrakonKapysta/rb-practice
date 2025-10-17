@@ -1,8 +1,7 @@
-import { restApiFetcher } from '@/pkg/libraries/rest-api'
-
-import { loggerUtil } from '@/pkg/utils/logger'
-
 import { Experiment, Result } from '@growthbook/growthbook'
+
+import { restApiFetcher } from '@/pkg/libraries/rest-api'
+import { loggerUtil } from '@/pkg/utils/logger'
 
 interface ExperimentEvent {
   experiment: Experiment<unknown>
