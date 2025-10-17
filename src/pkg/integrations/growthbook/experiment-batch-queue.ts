@@ -9,8 +9,8 @@ interface ExperimentEvent {
   timestamp: Date
 }
 
-class ExperimantBatchQueue {
-  private static instance: ExperimantBatchQueue
+class ExperimentBatchQueue {
+  private static instance: ExperimentBatchQueue
   private queue: ExperimentEvent[] = []
   private flushTimeout: NodeJS.Timeout | null = null
 
@@ -22,11 +22,11 @@ class ExperimantBatchQueue {
 
   private constructor() {}
 
-  public static getInstance(): ExperimantBatchQueue {
-    if (!ExperimantBatchQueue.instance) {
-      ExperimantBatchQueue.instance = new ExperimantBatchQueue()
+  public static getInstance(): ExperimentBatchQueue {
+    if (!ExperimentBatchQueue.instance) {
+      ExperimentBatchQueue.instance = new ExperimentBatchQueue()
     }
-    return ExperimantBatchQueue.instance
+    return ExperimentBatchQueue.instance
   }
 
   public addEvent(experiment: Experiment<unknown>, result: Result<unknown>, distinct_id?: string): void {
@@ -121,4 +121,4 @@ class ExperimantBatchQueue {
   }
 }
 
-export const experimantBatchQueue = ExperimantBatchQueue.getInstance()
+export const experimentBatchQueue = ExperimentBatchQueue.getInstance()
