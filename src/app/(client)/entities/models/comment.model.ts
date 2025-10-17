@@ -21,6 +21,8 @@ export interface ICreateComment {
   characterId: number
 }
 
+export interface IUpdateCommnent extends Partial<ICreateComment> {}
+
 export interface ICommentsFilters {
   characterId?: number
   commentId?: string

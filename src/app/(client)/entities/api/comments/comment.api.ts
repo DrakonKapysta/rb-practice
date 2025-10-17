@@ -1,11 +1,16 @@
 'use server'
 
-import { and, asc, desc, eq, ilike } from 'drizzle-orm'
+import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
 import { revalidateTag, unstable_cache } from 'next/cache'
 
 import { captureException } from '@sentry/nextjs'
 
-import { ICommentMutationResult, ICommentsFilters, ICreateComment } from '@/app/(client)/entities/models'
+import {
+  ICommentMutationResult,
+  ICommentsFilters,
+  ICreateComment,
+  IUpdateCommnent,
+} from '@/app/(client)/entities/models'
 import { createServerClient } from '@/pkg/integrations/supabase'
 import { comments, db, withPagination } from '@/pkg/libraries/db'
 
@@ -133,4 +138,48 @@ export async function getComments(filters?: ICommentsFilters) {
 
     { revalidate: 60, tags: [`comments-with-filters`, JSON.stringify(filters)] },
   )()
+}
+
+export async function deleteComment(commentId: number): Promise<number | undefined> {
+  try {
+    const deletedId = await db.delete(comments).where(eq(comments.id, commentId)).returning({ deletedId: comments.id })
+
+    if (!deletedId || deletedId.length === 0) {
+      return undefined
+    }
+
+    revalidateTag(`comments-character-id-${commentId}`)
+
+    return deletedId[0].deletedId
+  } catch (error) {
+    captureException(error, {
+      tags: { commentId, function: 'CommentApi.deleteComment', type: 'database_error' },
+    })
+
+    return undefined
+  }
+}
+
+export async function updateComment(commentId: number, comment: IUpdateCommnent) {
+  try {
+    const updatedCommnet = await db
+      .update(comments)
+      .set({ ...comment, updatedAt: sql`NOW()` })
+      .where(eq(comments.id, commentId))
+      .returning()
+
+    if (!updatedCommnet || updatedCommnet.length === 0) {
+      return undefined
+    }
+
+    revalidateTag(`comments-character-id-${commentId}`)
+
+    return updatedCommnet[0]
+  } catch (error) {
+    captureException(error, {
+      tags: { commentId, function: 'CommentApi.updateComment', type: 'database_error' },
+    })
+
+    return undefined
+  }
 }
