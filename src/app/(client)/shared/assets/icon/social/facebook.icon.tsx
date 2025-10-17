@@ -1,0 +1,33 @@
+import { FC } from 'react'
+
+import { cn } from '@heroui/react'
+
+interface IProps {
+  className?: string
+  width?: number
+  height?: number
+}
+
+const FacebookIcon: FC<IProps> = (props) => {
+  const { className, width, height } = props
+
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      className={cn('h-6 w-6', className)}
+      fill='none'
+      viewBox='0 0 28 29'
+      aria-hidden='true'
+      focusable='false'
+      width={width}
+      height={height}
+    >
+      <path
+        fill='currentColor'
+        d='M14 .67c-7.732 0-14 6.268-14 14 0 6.566 4.52 12.075 10.618 13.588v-9.31H7.731V14.67h2.887v-1.843c0-4.765 2.156-6.974 6.835-6.974.887 0 2.417.174 3.043.348v3.878c-.33-.035-.904-.052-1.617-.052-2.296 0-3.183.87-3.183 3.13v1.513h4.573l-.786 4.278h-3.787v9.619C22.628 27.73 28 21.827 28 14.67c0-7.732-6.268-14-14-14'
+      ></path>
+    </svg>
+  )
+}
+
+export default FacebookIcon

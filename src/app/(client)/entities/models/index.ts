@@ -1,1 +1,2 @@
-export * from './rick-and-morty.model'
+export * from './character.model'
+export * from './comment.model'

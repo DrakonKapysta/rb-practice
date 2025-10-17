@@ -18,7 +18,7 @@ interface IProps {
   params: Promise<{ locale: string }>
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
 
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<Readonly<IProps>> = async (props) => {
   const { children, params } = await props
+
   const locale = (await params).locale
   if (!hasLocale(routing.locales, locale)) {
     notFound()

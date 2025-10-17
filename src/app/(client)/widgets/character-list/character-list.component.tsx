@@ -1,12 +1,13 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import * as qs from 'qs-esm'
 import { FC } from 'react'
 
 import { Button, Spinner } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
-import { rickAndMortyQueryOptions } from '@/app/(client)/entities/api'
+import { charactersQueryOptions } from '@/app/(client)/entities/api'
 import { CharacterCardComponent } from '@/app/(client)/features/character-card'
 import { useQueryParams } from '@/app/(client)/shared/hooks'
 import { OopsMessageComponent } from '@/app/(client)/shared/ui'
@@ -15,10 +16,11 @@ interface IProps {}
 
 const CharacterListComponent: FC<Readonly<IProps>> = () => {
   const { searchParams } = useQueryParams()
+  const t = useTranslations('character.list')
 
   const filters = qs.parse(searchParams.toString())
 
-  const { data, isLoading, isFetching } = useQuery(rickAndMortyQueryOptions(filters))
+  const { data, isLoading, isFetching } = useQuery(charactersQueryOptions(filters))
 
   if (isLoading || (isFetching && !data)) {
     return <Spinner />
@@ -39,7 +41,7 @@ const CharacterListComponent: FC<Readonly<IProps>> = () => {
       {data.info.next && (
         <div className='flex justify-center'>
           <Button color='primary' variant='flat'>
-            Load More
+            {t('load_more')}
           </Button>
         </div>
       )}
