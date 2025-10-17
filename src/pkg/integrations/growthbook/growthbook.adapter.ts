@@ -6,8 +6,8 @@ import { Attributes, createGrowthbookAdapter, TrackingCallback } from '@flags-sd
 import { envServer } from '@/config/env'
 import { createServerClient } from '@/pkg/integrations/supabase'
 import { loggerUtil } from '@/pkg/utils/logger'
-
-//TODO: fix singleton instance of GrowthBookAdapter is not reflecting changed feature event after cache expires
+import { after } from 'next/server'
+import { experimantBatchQueue } from './experimant-batch-queue'
 
 export class GrowthBookAdapter {
   private static instance: GrowthBookAdapter
@@ -49,6 +49,11 @@ export class GrowthBookAdapter {
           idleStreamInterval: 100000,
           cacheKey: 'gbFeaturesCache',
         },
+      },
+      trackingCallback: (experiment, result) => {
+        after(() => {
+          experimantBatchQueue.addEvent(experiment, result, result.hashValue)
+        })
       },
     })
 

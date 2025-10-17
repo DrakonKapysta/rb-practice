@@ -1,8 +1,9 @@
 import mixpanel from 'mixpanel'
 
-import { envServer } from '@/config/env'
+import { envClient, envServer } from '@/config/env'
 
 import { MixpanelEventName, MixpanelEventProperties } from './mixpanel.types'
+import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
 export class MixpanelServer {
   private static instance: MixpanelServer
@@ -27,6 +28,15 @@ export class MixpanelServer {
     })
   }
 
+  public sendEventToEndpoint(
+    events: { event: MixpanelEventName; properties: MixpanelEventProperties<MixpanelEventName> }[],
+  ) {
+    restApiFetcher.post('/mixpanel', {
+      prefixUrl: envClient.NEXT_PUBLIC_CLIENT_API_URL,
+      json: { events },
+    })
+  }
+
   public track<T extends MixpanelEventName>(event: T, properties: MixpanelEventProperties<T>, distinctId?: string) {
     const eventProperties: mixpanel.PropertyDict = {
       ...properties,
@@ -37,19 +47,19 @@ export class MixpanelServer {
     this.mixpanel.track(event, eventProperties)
   }
 
-  public trackBulk<T extends MixpanelEventName>(
-    events: { event: T; properties: MixpanelEventProperties<T> }[],
-    distinctId?: string,
+  public trackBatch<T extends MixpanelEventName>(
+    events: { event: T; properties: MixpanelEventProperties<T>; distinct_id?: string }[],
   ) {
     this.mixpanel.track_batch(
       events.map((event) => ({
         event: event.event,
-        properties: event.properties,
-        distinct_id: distinctId,
-        timestamp: new Date().toISOString(),
+        properties: {
+          ...event.properties,
+          timestamp: new Date().toISOString(),
+        },
       })),
+      { max_batch_size: 100, max_concurrent_requests: 10 },
     )
-    this.mixpanel.track_batch(events, { max_batch_size: 100, max_concurrent_requests: 10 })
   }
 
   public identify(distinctId: string): void {
