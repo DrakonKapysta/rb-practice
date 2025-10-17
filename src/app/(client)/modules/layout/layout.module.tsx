@@ -1,7 +1,8 @@
 import type { FC, ReactNode } from 'react'
 
 import { ContainerComponent } from '@/app/(client)/shared/ui'
-import { IqFooterComponent, IqHeaderComponent } from '@/app/(client)/widgets'
+import { IqFooterComponent } from '@/app/(client)/widgets/iq-footer'
+import { IqHeaderComponent } from '@/app/(client)/widgets/iq-header'
 
 interface IProps {
   children: ReactNode

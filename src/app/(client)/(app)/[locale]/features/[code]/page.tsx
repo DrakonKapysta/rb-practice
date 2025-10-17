@@ -5,10 +5,10 @@ import { FC } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { charactersQueryOptions } from '@/app/(client)/entities/api'
-import { HomeModule } from '@/app/(client)/modules/home'
+import { HomeBannerModule } from '@/app/(client)/modules/experiments/home-banner'
 import { charactersFlags, showCharactersBanner, showCharactersFooter } from '@/pkg/integrations/growthbook'
+import { FeatureStoreProvider } from '@/pkg/libraries/feature'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
-import { FeatureStoreProvider } from '@/pkg/libraries/feature/feature.provider'
 
 export const revalidate = 120
 
@@ -27,8 +27,10 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   setRequestLocale(locale)
 
-  const footerCharacters = await showCharactersFooter(code, charactersFlags)
-  const bannerCharacters = await showCharactersBanner(code, charactersFlags)
+  const [footerCharacters, bannerCharacters] = await Promise.all([
+    showCharactersFooter(code, charactersFlags),
+    showCharactersBanner(code, charactersFlags),
+  ])
 
   const initialFeatures = {
     showCharactersFooter: footerCharacters,
@@ -41,11 +43,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <FeatureStoreProvider initialFeatures={initialFeatures}>
-        {bannerCharacters && (
-          <div className='bg-secondary p-4 text-center text-2xl font-bold text-white'>Banner Characters</div>
-        )}
-
-        <HomeModule />
+        <HomeBannerModule />
 
         {footerCharacters && (
           <footer className='bg-secondary p-4 text-center text-2xl font-bold text-white'>Footer Characters</footer>

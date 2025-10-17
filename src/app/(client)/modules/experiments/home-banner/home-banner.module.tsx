@@ -4,12 +4,12 @@ import { type FC, Suspense } from 'react'
 
 import { Card, CardBody, CardHeader } from '@heroui/react'
 
-import { CharacterListComponent } from '@/app/(client)/widgets/character-list'
 import { CharacterSearchComponent } from '@/app/(client)/widgets/character-search'
+import { CharacterListBannerComponent } from '@/app/(client)/widgets/experiments'
 
 interface IProps {}
 
-const HomeModule: FC<Readonly<IProps>> = () => {
+const HomeBannerModule: FC<Readonly<IProps>> = () => {
   const t = useTranslations('home')
 
   return (
@@ -30,11 +30,11 @@ const HomeModule: FC<Readonly<IProps>> = () => {
         </Card>
 
         <Suspense>
-          <CharacterListComponent />
+          <CharacterListBannerComponent />
         </Suspense>
       </div>
     </div>
   )
 }
 
-export default HomeModule
+export default HomeBannerModule

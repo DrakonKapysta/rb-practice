@@ -3,12 +3,8 @@
 import { createContext, FC, ReactNode, useContext, useRef } from 'react'
 import { useStore } from 'zustand'
 
-import {
-  createFeatureStore,
-  FeatureState,
-  FeatureStore,
-  initFeatureStore,
-} from '@/app/(client)/shared/store/feature.store'
+import { createFeatureStore } from '@/app/(client)/shared/store'
+import { FeatureStore, initFeatureStore } from '@/app/(client)/shared/store'
 
 export type FeatureStoreApi = ReturnType<typeof createFeatureStore>
 
@@ -19,7 +15,7 @@ export interface FeatureStoreProviderProps {
   initialFeatures?: Record<string, unknown>
 }
 
-export const FeatureStoreProvider: FC<FeatureStoreProviderProps> = (props) => {
+const FeatureStoreProvider: FC<FeatureStoreProviderProps> = (props) => {
   const { children, initialFeatures } = props
 
   const featureStoreRef = useRef<FeatureStoreApi | null>(null)
@@ -42,3 +38,5 @@ export const useFeatureStore = <T,>(selector: (state: FeatureStore) => T): T => 
 
   return useStore(featureStoreContext, selector)
 }
+
+export default FeatureStoreProvider
