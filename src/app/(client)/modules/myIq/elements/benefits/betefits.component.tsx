@@ -14,7 +14,8 @@ const BenefitsComponent: FC<Readonly<IProps>> = () => {
 
   return (
     <div className='relative z-0 flex flex-col gap-2 py-6 md:py-10'>
-      <h4 className='text-center text-2xl font-semibold md:text-4xl'>{t('benefits_title')}</h4>
+      <h4 className='text-secondary-800/90 text-center text-2xl font-semibold md:text-4xl'>{t('benefits_title')}</h4>
+
       <ScrollShadow
         hideScrollBar
         className='flex w-[calc(100vw-3rem)] gap-6 pt-5'

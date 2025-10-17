@@ -14,9 +14,10 @@ const FaqComponent: FC<Readonly<IProps>> = () => {
 
   return (
     <div className='relative z-0 flex flex-col gap-6 py-6 md:py-10 lg:flex-row lg:gap-14'>
-      <h2 className='text-secondary-800 text-center text-2xl leading-8 font-semibold md:text-4xl md:leading-12 lg:text-start'>
+      <h2 className='text-secondary-800/90 text-center text-2xl leading-8 font-semibold md:text-4xl md:leading-12 lg:text-start'>
         {t('faq_title')}
       </h2>
+
       <Accordion selectionMode='multiple'>
         {itemKeys.map((itemKey) => {
           return (
@@ -34,6 +35,7 @@ const FaqComponent: FC<Readonly<IProps>> = () => {
           )
         })}
       </Accordion>
+
       <div className='absolute top-0 -left-1/2 z-[-1] h-full w-[200vw] bg-[#F6FBFF]'></div>
     </div>
   )

@@ -25,7 +25,7 @@ const CommunityComponent: FC<Readonly<IProps>> = async () => {
   const t = await getTranslations('myIq.community')
 
   return (
-    <section className='text-secondary-800/70 relative z-0 flex flex-col items-center justify-between gap-3 py-6 md:flex-row md:py-10'>
+    <section className='text-secondary-800/70 relative z-0 -mt-2 flex flex-col items-center justify-between gap-3 py-6 md:flex-row md:py-10'>
       <div>
         <h3 className='text-secondary-800 text-center text-2xl leading-11 font-semibold md:text-start md:text-4xl'>
           {t('community_title')}
