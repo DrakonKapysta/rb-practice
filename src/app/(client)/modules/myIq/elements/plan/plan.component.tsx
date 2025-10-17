@@ -16,8 +16,10 @@ const PlanComponent: FC<Readonly<IProps>> = () => {
 
   return (
     <section className='text-secondary-800 py-6 md:py-10'>
-      <h3 className='text-secondary-800/70 text-center text-2xl font-semibold md:text-4xl'>{t('plans_title')}</h3>
+      <h3 className='text-secondary-800/90 text-center text-2xl font-semibold md:text-4xl'>{t('plans_title')}</h3>
+
       <p className='pt-2 text-center text-base md:text-lg'>{t('plans_description')}</p>
+
       <div className='flex items-center justify-center gap-3 pt-5 max-lg:flex-col md:gap-6 md:pt-8'>
         <div className='flex flex-col gap-4 sm:flex-row'>
           {itemKeys.map((itemKey, index) => {
@@ -28,13 +30,13 @@ const PlanComponent: FC<Readonly<IProps>> = () => {
             return (
               <Card
                 key={index + item.title}
-                className='text-secondary-800 border-default-200 max-w-[362px] flex-1 border p-3 shadow-xl'
+                className='text-secondary-800 border-default-200 max-w-[362px] flex-1 border p-3 shadow-xl hover:scale-105'
               >
                 <CardHeader className='pb-6'>
                   <h4 className='text-lg font-semibold'>{t(`plans_items.${itemKey}.title`)}</h4>
                 </CardHeader>
 
-                <Divider className='bg-black' />
+                <Divider className='mb-1.5 bg-black' />
 
                 <CardBody>
                   <div className='flex flex-col gap-8'>

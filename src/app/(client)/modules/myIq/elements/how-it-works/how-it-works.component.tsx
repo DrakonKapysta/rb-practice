@@ -21,7 +21,7 @@ const HowItWorksComponent: FC<Readonly<IProps>> = async () => {
 
   return (
     <div id='how-it-works' className='scroll-mt-20 pb-6 md:pb-10'>
-      <h3 className='text-center text-2xl font-semibold md:text-4xl'>{t('how_it_works')}</h3>
+      <h3 className='text-secondary-800/90 text-center text-2xl font-semibold md:text-4xl'>{t('how_it_works')}</h3>
 
       <div className='flex flex-col gap-4 pt-6 md:flex-row md:gap-6 md:pt-8'>
         {itemKeys.map((key) => {
