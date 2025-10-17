@@ -1,5 +1,6 @@
-export enum ERickAndMortyQueryKey {
-  RICK_AND_MORTY = 'rick-and-morty',
+export enum ECharacterQueryKey {
+  CHARACTERS = 'characters',
+  CHARACTER_ID = 'character-id',
 }
 
 export interface ICharacter {

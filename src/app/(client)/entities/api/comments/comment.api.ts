@@ -1,6 +1,6 @@
 'use server'
 
-import { and, asc, desc, eq, ilike, SQL } from 'drizzle-orm'
+import { and, asc, desc, eq, ilike } from 'drizzle-orm'
 import { revalidateTag, unstable_cache } from 'next/cache'
 
 import { captureException } from '@sentry/nextjs'

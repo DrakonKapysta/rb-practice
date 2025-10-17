@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { rickAndMortyQueryOptions } from '@/app/(client)/entities/api'
+import { charactersQueryOptions } from '@/app/(client)/entities/api'
 import { HomeModule } from '@/app/(client)/modules/home'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
@@ -18,7 +18,7 @@ const Page: FC<Readonly<IProps>> = async (props) => {
 
   const queryClient = getQueryClient()
 
-  await queryClient.prefetchQuery(rickAndMortyQueryOptions({}))
+  await queryClient.prefetchQuery(charactersQueryOptions({}))
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

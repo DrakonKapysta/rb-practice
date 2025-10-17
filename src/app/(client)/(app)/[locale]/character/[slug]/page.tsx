@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
-import { rickAndMortyByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
+import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
 import { CharacterDetailComponent } from '@/app/(client)/widgets'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
@@ -28,7 +28,7 @@ const CharacterPage: FC<Readonly<IProps>> = async (props) => {
     notFound()
   }
 
-  await queryClient.prefetchQuery(rickAndMortyByIdQueryOptions(characterId))
+  await queryClient.prefetchQuery(characterByIdQueryOptions(characterId))
 
   return (
     <div className='min-h-screen p-8 pb-20'>

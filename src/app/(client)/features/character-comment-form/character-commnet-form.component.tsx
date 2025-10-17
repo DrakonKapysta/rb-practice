@@ -7,7 +7,7 @@ import { addToast, Button, Input } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
-import { CreateCommentMutationOptions } from '@/app/(client)/entities/api/comments'
+import { CreateCommentMutationOptions } from '@/app/(client)/entities/api'
 
 import { CreateCommentFormSchema, ICreateCommentForm } from './character-commnet-form.interface'
 

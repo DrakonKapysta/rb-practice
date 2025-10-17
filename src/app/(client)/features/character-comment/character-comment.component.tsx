@@ -1,10 +1,10 @@
+import { MessageSquare } from 'lucide-react'
 import { FC } from 'react'
 
 import { Card, CardBody, CardHeader, Spinner } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
-import { MessageSquare } from 'lucide-react'
 
-import { commentsByCharacterIdQueryOptions } from '@/app/(client)/entities/api/comments'
+import { commentsByCharacterIdQueryOptions } from '@/app/(client)/entities/api'
 import { OopsMessageComponent } from '@/app/(client)/shared/ui'
 
 interface IProps {
@@ -18,7 +18,7 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
     data: comments,
     isLoading,
     error,
-  } = useQuery(commentsByCharacterIdQueryOptions(characterId, { search: 'hello', orderDirection: 'asc' }))
+  } = useQuery(commentsByCharacterIdQueryOptions(characterId, { orderDirection: 'asc' }))
 
   if (isLoading) {
     return (

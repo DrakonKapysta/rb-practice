@@ -4,8 +4,8 @@ import { captureException } from '@sentry/nextjs'
 import { QueryFunctionContext } from '@tanstack/react-query'
 
 import { ICharacter, ICharacterFilters, ICharactersResponse } from '@/app/(client)/entities/models'
-import { restApiFetcher } from '@/pkg/libraries/rest-api'
 import { envClient } from '@/config/env'
+import { restApiFetcher } from '@/pkg/libraries/rest-api'
 
 export async function getCharacters(
   filters?: ICharacterFilters,

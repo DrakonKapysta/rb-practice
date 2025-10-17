@@ -7,7 +7,7 @@ import { FC } from 'react'
 import { Button, Spinner } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
-import { rickAndMortyQueryOptions } from '@/app/(client)/entities/api'
+import { charactersQueryOptions } from '@/app/(client)/entities/api'
 import { CharacterCardComponent } from '@/app/(client)/features/character-card'
 import { useQueryParams } from '@/app/(client)/shared/hooks'
 import { OopsMessageComponent } from '@/app/(client)/shared/ui'
@@ -20,7 +20,7 @@ const CharacterListComponent: FC<Readonly<IProps>> = () => {
 
   const filters = qs.parse(searchParams.toString())
 
-  const { data, isLoading, isFetching } = useQuery(rickAndMortyQueryOptions(filters))
+  const { data, isLoading, isFetching } = useQuery(charactersQueryOptions(filters))
 
   if (isLoading || (isFetching && !data)) {
     return <Spinner />

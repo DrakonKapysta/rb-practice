@@ -7,7 +7,9 @@ import { FC } from 'react'
 import { Button, Spinner } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
-import { rickAndMortyByIdQueryOptions } from '@/app/(client)/entities/api'
+import { characterByIdQueryOptions } from '@/app/(client)/entities/api'
+import { CharacterCommentComponent } from '@/app/(client)/features/character-comment'
+import { CharacterCommentFormComponent } from '@/app/(client)/features/character-comment-form'
 import { OopsMessageComponent } from '@/app/(client)/shared/ui'
 import { Link, useRouter } from '@/pkg/libraries/locale'
 
@@ -18,8 +20,6 @@ import {
   EpisodesInformationComponent,
   LocationInformationComponent,
 } from './elements'
-import { CharacterCommentFormComponent } from '@/app/(client)/features/character-comment-form'
-import { CharacterCommentComponent } from '@/app/(client)/features/character-comment'
 
 interface IProps {
   characterId: number
@@ -32,7 +32,7 @@ const CharacterDetailComponent: FC<Readonly<IProps>> = (props) => {
   const tErrors = useTranslations('errors')
   const tCharacter = useTranslations('character.detail')
 
-  const { data: character, isLoading, error } = useQuery(rickAndMortyByIdQueryOptions(characterId))
+  const { data: character, isLoading, error } = useQuery(characterByIdQueryOptions(characterId))
 
   if (isLoading) {
     return <Spinner />
