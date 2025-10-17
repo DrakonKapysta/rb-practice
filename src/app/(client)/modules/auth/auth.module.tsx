@@ -5,7 +5,8 @@ import { FC, useState } from 'react'
 
 import { Button } from '@heroui/react'
 
-import { LoginFormComponent, RegisterFormComponent } from '@/app/(client)/widgets'
+import { LoginFormComponent } from '@/app/(client)/widgets/login-form'
+import { RegisterFormComponent } from '@/app/(client)/widgets/register-form'
 
 interface IProps {
   defaultType?: 'login' | 'register'

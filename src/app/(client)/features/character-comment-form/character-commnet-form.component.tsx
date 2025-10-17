@@ -7,7 +7,7 @@ import { addToast, Button, Input } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
-import { CreateCommentMutationOptions } from '@/app/(client)/entities/api'
+import { createCommentMutationOptions } from '@/app/(client)/entities/api'
 
 import { CreateCommentFormSchema, ICreateCommentForm } from './character-commnet-form.interface'
 
@@ -16,7 +16,7 @@ interface IProps {
 }
 
 const CharacterCommentFormComponent: FC<Readonly<IProps>> = ({ characterId }) => {
-  const { mutateAsync: createComment, isPending, error } = useMutation(CreateCommentMutationOptions())
+  const { mutateAsync: createComment, isPending, error } = useMutation(createCommentMutationOptions())
 
   const {
     register,

@@ -8,7 +8,7 @@ import { envServer } from '@/config/env'
 import { createServerClient } from '@/pkg/integrations/supabase'
 import { loggerUtil } from '@/pkg/utils/logger'
 
-import { experimantBatchQueue } from './experimant-batch-queue'
+import { experimentBatchQueue } from './experiment-batch-queue'
 
 export class GrowthBookAdapter {
   private static instance: GrowthBookAdapter
@@ -53,7 +53,7 @@ export class GrowthBookAdapter {
       },
       trackingCallback: (experiment, result) => {
         after(() => {
-          experimantBatchQueue.addEvent(experiment, result, result.hashValue)
+          experimentBatchQueue.addEvent(experiment, result, result.hashValue)
         })
       },
     })

@@ -4,7 +4,7 @@ import { FC } from 'react'
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
-import { CharacterDetailComponent } from '@/app/(client)/widgets'
+import { CharacterDetailComponent } from '@/app/(client)/widgets/character-detail'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
