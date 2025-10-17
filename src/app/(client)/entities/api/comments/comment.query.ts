@@ -1,10 +1,10 @@
 import { queryOptions } from '@tanstack/react-query'
 
-import { ECommentQueryKey } from '@/app/(client)/entities/models'
+import { ECommentQueryKey, ICommentsFilters } from '@/app/(client)/entities/models'
 
-import { getCommentById, getCommentsByCharacterId } from './comment.api'
+import { getCommentById, getComments, getCommentsByCharacterId } from './comment.api'
 
-export const CommentByIdQueryOptions = (commentId: number) => {
+export const commentByIdQueryOptions = (commentId: number) => {
   return queryOptions({
     queryKey: [ECommentQueryKey.COMMENTS, commentId],
 
@@ -12,10 +12,18 @@ export const CommentByIdQueryOptions = (commentId: number) => {
   })
 }
 
-export const CommentsByCharacterIdQueryOptions = (characterId: number) => {
+export const commentsByCharacterIdQueryOptions = (characterId: number, filters?: ICommentsFilters) => {
   return queryOptions({
     queryKey: [ECommentQueryKey.COMMENTS_CHARACTER_ID, characterId],
 
-    queryFn: () => getCommentsByCharacterId(characterId),
+    queryFn: () => getCommentsByCharacterId(characterId, filters),
+  })
+}
+
+export const getCommentsQueryOptions = (filters?: ICommentsFilters) => {
+  return queryOptions({
+    queryKey: [ECommentQueryKey.COMMENTS, { ...filters }],
+
+    queryFn: () => getComments(filters),
   })
 }

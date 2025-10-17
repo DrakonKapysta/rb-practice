@@ -1,6 +1,6 @@
 'use server'
 
-import { eq } from 'drizzle-orm'
+import { and, asc, desc, eq, ilike, SQL } from 'drizzle-orm'
 import { revalidateTag, unstable_cache } from 'next/cache'
 
 import { captureException } from '@sentry/nextjs'
@@ -30,16 +30,30 @@ export async function getCommentById(commentId: number) {
   )()
 }
 
-export async function getCommentsByCharacterId(characterId: number) {
+export async function getCommentsByCharacterId(characterId: number, filters?: ICommentsFilters) {
   return unstable_cache(
     async () => {
       try {
-        const result = await db.select().from(comments).where(eq(comments.characterId, characterId))
-        return result
+        let query = db
+          .select()
+          .from(comments)
+          .where(
+            and(
+              eq(comments.characterId, characterId),
+              filters?.search ? ilike(comments.content, `%${filters?.search}%`) : undefined,
+            ),
+          )
+          .orderBy(filters?.orderDirection === 'asc' ? asc(comments.createdAt) : desc(comments.createdAt))
+          .$dynamic()
+
+        query = withPagination(query, filters?.offset, filters?.limit)
+
+        return await query.execute()
       } catch (error) {
         captureException(error, {
           tags: { characterId: characterId, function: 'CommentApi.getCommentsByCharacterId', type: 'database_error' },
         })
+
         throw error
       }
     },
@@ -80,9 +94,28 @@ export async function getComments(filters?: ICommentsFilters) {
   return unstable_cache(
     async () => {
       try {
-        let query = db.select().from(comments).$dynamic()
+        if (!filters) {
+          let query = db.select().from(comments).$dynamic()
+          query = withPagination(query, 1, 10)
+          return await query
+        }
 
-        query = withPagination(query, filters?.offset, filters?.limit)
+        let query = db
+          .select()
+          .from(comments)
+          .where(
+            and(
+              filters.characterId ? eq(comments.characterId, filters?.characterId) : undefined,
+              filters.commentId ? eq(comments.id, parseInt(filters?.commentId)) : undefined,
+              filters.search ? ilike(comments.content, `%${filters?.search}%`) : undefined,
+            ),
+          )
+          .orderBy(filters?.orderDirection === 'asc' ? asc(comments.createdAt) : desc(comments.createdAt))
+          .$dynamic()
+
+        query = withPagination(query, filters.offset, filters?.limit)
+
+        return await query
       } catch (error) {
         captureException(error, {
           tags: {

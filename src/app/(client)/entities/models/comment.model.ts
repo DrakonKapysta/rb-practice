@@ -26,7 +26,6 @@ export interface ICommentsFilters {
   commentId?: string
   limit?: number
   offset?: number
-  orderBy?: string
-  orderDirection?: string
+  orderDirection?: 'asc' | 'desc'
   search?: string
 }
