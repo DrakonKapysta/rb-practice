@@ -6,7 +6,9 @@ import { revalidateTag, unstable_cache } from 'next/cache'
 import { captureException } from '@sentry/nextjs'
 
 import {
-  ICommentMutationResult,
+  ICommentMutationCreateResult,
+  ICommentMutationDeleteResult,
+  ICommentMutationUpdateResult,
   ICommentsFilters,
   ICreateComment,
   IUpdateCommnent,
@@ -68,7 +70,7 @@ export async function getCommentsByCharacterId(characterId: number, filters?: IC
   )()
 }
 
-export async function createComment(comment: ICreateComment): Promise<ICommentMutationResult> {
+export async function createComment(comment: ICreateComment): Promise<ICommentMutationCreateResult> {
   try {
     const supabase = await createServerClient()
     const user = await supabase.auth.getUser()
@@ -140,27 +142,32 @@ export async function getComments(filters?: ICommentsFilters) {
   )()
 }
 
-export async function deleteComment(commentId: number): Promise<number | undefined> {
+export async function deleteComment(commentId: number, characterId?: number): Promise<ICommentMutationDeleteResult> {
   try {
     const deletedId = await db.delete(comments).where(eq(comments.id, commentId)).returning({ deletedId: comments.id })
 
     if (!deletedId || deletedId.length === 0) {
-      return undefined
+      return { success: false, error: 'Failed to delete comment' }
     }
 
-    revalidateTag(`comments-character-id-${commentId}`)
+    if (characterId) {
+      revalidateTag(`comments-character-id-${characterId}`)
+    }
 
-    return deletedId[0].deletedId
+    return { success: true, result: { deletedId: deletedId[0].deletedId, characterId } }
   } catch (error) {
     captureException(error, {
       tags: { commentId, function: 'CommentApi.deleteComment', type: 'database_error' },
     })
 
-    return undefined
+    return { success: false, error: 'Failed to delete comment' }
   }
 }
 
-export async function updateComment(commentId: number, comment: IUpdateCommnent) {
+export async function updateComment(
+  commentId: number,
+  comment: IUpdateCommnent,
+): Promise<ICommentMutationUpdateResult> {
   try {
     const updatedCommnet = await db
       .update(comments)
@@ -169,17 +176,17 @@ export async function updateComment(commentId: number, comment: IUpdateCommnent)
       .returning()
 
     if (!updatedCommnet || updatedCommnet.length === 0) {
-      return undefined
+      return { success: false, error: 'Failed to update comment' }
     }
 
-    revalidateTag(`comments-character-id-${commentId}`)
+    revalidateTag(`comments-character-id-${comment.characterId}`)
 
-    return updatedCommnet[0]
+    return { success: true, result: updatedCommnet[0] }
   } catch (error) {
     captureException(error, {
       tags: { commentId, function: 'CommentApi.updateComment', type: 'database_error' },
     })
 
-    return undefined
+    return { success: false, error: 'Failed to update comment' }
   }
 }

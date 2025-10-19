@@ -1,16 +1,17 @@
-'use client'
 import { Check } from 'lucide-react'
-import { useMessages, useTranslations } from 'next-intl'
+import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Link } from '@heroui/react'
+import { Divider } from '@heroui/react'
 
+import { Button, Card, CardBody, CardFooter, CardHeader } from '@/app/(client)/shared/ui'
+import { Link } from '@/pkg/libraries/locale'
 interface IProps {}
 
-const PlanComponent: FC<Readonly<IProps>> = () => {
-  const t = useTranslations('myIq.plans')
+const PlanComponent: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations('myIq.plans')
 
-  const messages = useMessages()
+  const messages = await getMessages()
 
   const itemKeys = Object.keys(messages.myIq.plans.plans_items)
 
@@ -74,8 +75,10 @@ const PlanComponent: FC<Readonly<IProps>> = () => {
       </div>
       <p className='mt-4 text-center text-[15px] leading-5'>
         *{t('plans_pricing_page_description_part1')}{' '}
-        <Link className='text-primary-900 underline'>{t('plans_pricing_page_description_part2')}</Link>,{' '}
-        {t('plans_pricing_page_description_part3')}
+        <Link href='/pricing' className='text-primary-900 underline'>
+          {t('plans_pricing_page_description_part2')}
+        </Link>
+        , {t('plans_pricing_page_description_part3')}
       </p>
     </section>
   )

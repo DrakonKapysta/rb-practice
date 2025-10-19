@@ -1,17 +1,15 @@
-'use client'
-
 import { Check } from 'lucide-react'
-import { useMessages, useTranslations } from 'next-intl'
+import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { Card, CardBody } from '@heroui/react'
+import { Card, CardBody } from '@/app/(client)/shared/ui'
 
 interface IProps {}
 
-const ImproveSkillsComponent: FC<Readonly<IProps>> = () => {
-  const t = useTranslations('myIq.improveSkills')
+const ImproveSkillsComponent: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations('myIq.improveSkills')
 
-  const messages = useMessages()
+  const messages = await getMessages()
 
   const itemKeys = Object.keys(messages.myIq.improveSkills.improve_skills_items)
 

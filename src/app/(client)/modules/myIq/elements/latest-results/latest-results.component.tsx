@@ -1,10 +1,9 @@
-'use client'
 import BY from 'country-flag-icons/react/3x2/BY'
 import PL from 'country-flag-icons/react/3x2/PL'
 import RO from 'country-flag-icons/react/3x2/RO'
 import UA from 'country-flag-icons/react/3x2/UA'
 import US from 'country-flag-icons/react/3x2/US'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import type { FC } from 'react'
 
 interface IProps {}
@@ -74,8 +73,8 @@ const COUNTRIES = {
   US: <US title='United States' />,
 } as const
 
-const LatestResultsComponent: FC<Readonly<IProps>> = () => {
-  const t = useTranslations('myIq.latestResults')
+const LatestResultsComponent: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations('myIq.latestResults')
 
   return (
     <section className='pt-6 md:pt-10'>
