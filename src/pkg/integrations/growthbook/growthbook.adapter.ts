@@ -53,7 +53,7 @@ export class GrowthBookAdapter {
       },
       trackingCallback: (experiment, result) => {
         after(() => {
-          experimentBatchQueue.addEvent(experiment, result, result.hashValue)
+          experimentBatchQueue.addEvent(experiment, result)
         })
       },
     })
