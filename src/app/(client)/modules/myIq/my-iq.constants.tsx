@@ -1,3 +1,9 @@
+import BY from 'country-flag-icons/react/3x2/BY'
+import PL from 'country-flag-icons/react/3x2/PL'
+import RO from 'country-flag-icons/react/3x2/RO'
+import UA from 'country-flag-icons/react/3x2/UA'
+import US from 'country-flag-icons/react/3x2/US'
+
 import {
   BrainLampIcon,
   CheckListIcon,
@@ -9,12 +15,6 @@ import {
   RelationsHandsIcon,
   RocketIcon,
 } from '@/app/(client)/shared/assets/icon'
-
-import BY from 'country-flag-icons/react/3x2/BY'
-import PL from 'country-flag-icons/react/3x2/PL'
-import RO from 'country-flag-icons/react/3x2/RO'
-import UA from 'country-flag-icons/react/3x2/UA'
-import US from 'country-flag-icons/react/3x2/US'
 
 export const AVAILABLE_TESTS_MAP = {
   iq_test: {

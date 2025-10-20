@@ -1,8 +1,7 @@
+import { MessageSquare } from 'lucide-react'
 import { FC } from 'react'
 
 import { CardHeader } from '@/app/(client)/shared/ui'
-
-import { MessageSquare } from 'lucide-react'
 
 interface IProps {
   commentsCount: number

@@ -5,6 +5,7 @@ import { cn } from '@heroui/react'
 
 import { RarityGraphIcon } from '@/app/(client)/shared/assets/icon'
 import { Avatar, Button } from '@/app/(client)/shared/ui'
+
 import { AVATARS } from '../../my-iq.constants'
 
 const HeroSectionComponent = async () => {

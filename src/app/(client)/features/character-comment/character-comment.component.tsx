@@ -12,6 +12,7 @@ import {
   updateCommentMutationOptions,
 } from '@/app/(client)/entities/api'
 import { IComment } from '@/app/(client)/entities/models'
+import { useAuth } from '@/app/(client)/shared/hooks'
 import { CommentAvatarComponent, CommentHeaderComponent, OopsMessageComponent } from '@/app/(client)/shared/ui'
 
 interface IProps {
@@ -25,6 +26,8 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
   const [editCommentId, setEditCommentId] = useState<number | null>(null)
 
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+
+  const { userId: currentUserId } = useAuth()
 
   const {
     data: comments,
@@ -71,6 +74,10 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
 
   const handleCancelEditComment = () => {
     setEditCommentId(null)
+  }
+
+  const isCommentOwner = (comment: IComment) => {
+    return currentUserId && comment.userId === currentUserId
   }
 
   const handleSaveEditComment = async (comment: IComment) => {
@@ -168,72 +175,73 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
               >
                 <div className='mb-2 flex items-start justify-between'>
                   <CommentAvatarComponent name={comment?.userId} />
+                  {isCommentOwner(comment) && (
+                    <div className='flex items-center justify-center gap-3 overflow-hidden rounded-full'>
+                      <Button
+                        disabled={isDeletingComment}
+                        radius='full'
+                        onPress={() => handleStartEditComment(comment.id)}
+                        className={cn('text-default-500', editCommentId === comment.id && 'hidden')}
+                        variant='light'
+                        color='primary'
+                        size='sm'
+                        isIconOnly
+                      >
+                        <Edit className='h-6 w-6' />
+                      </Button>
 
-                  <div className='flex items-center justify-center gap-3 overflow-hidden rounded-full'>
-                    <Button
-                      disabled={isDeletingComment}
-                      radius='full'
-                      onPress={() => handleStartEditComment(comment.id)}
-                      className={cn('text-default-500', editCommentId === comment.id && 'hidden')}
-                      variant='light'
-                      color='primary'
-                      size='sm'
-                      isIconOnly
-                    >
-                      <Edit className='h-6 w-6' />
-                    </Button>
+                      {editCommentId === comment.id && (
+                        <div className='flex items-center gap-2'>
+                          <Button
+                            disabled={isUpdatingComment}
+                            isDisabled={isUpdatingComment}
+                            radius='full'
+                            onPress={() => handleSaveEditComment(comment)}
+                            className={cn(
+                              'text-default-500',
+                              editCommentId === comment.id ? 'text-primary-500 border-2 p-1' : '',
+                            )}
+                            variant='light'
+                            color='primary'
+                            size='sm'
+                            isIconOnly
+                          >
+                            <Save className='h-6 w-6' />
+                          </Button>
 
-                    {editCommentId === comment.id && (
-                      <div className='flex items-center gap-2'>
-                        <Button
-                          disabled={isUpdatingComment}
-                          isDisabled={isUpdatingComment}
-                          radius='full'
-                          onPress={() => handleSaveEditComment(comment)}
-                          className={cn(
-                            'text-default-500',
-                            editCommentId === comment.id ? 'text-primary-500 border-2 p-1' : '',
-                          )}
-                          variant='light'
-                          color='primary'
-                          size='sm'
-                          isIconOnly
-                        >
-                          <Save className='h-6 w-6' />
-                        </Button>
+                          <Button
+                            disabled={isUpdatingComment}
+                            isDisabled={isUpdatingComment}
+                            radius='full'
+                            onPress={handleCancelEditComment}
+                            className={cn(
+                              'text-default-500',
+                              editCommentId === comment.id ? 'text-primary-500 border-2 p-1' : '',
+                            )}
+                            variant='light'
+                            color='primary'
+                            size='sm'
+                            isIconOnly
+                          >
+                            <X className='h-6 w-6' />
+                          </Button>
+                        </div>
+                      )}
 
-                        <Button
-                          disabled={isUpdatingComment}
-                          isDisabled={isUpdatingComment}
-                          radius='full'
-                          onPress={handleCancelEditComment}
-                          className={cn(
-                            'text-default-500',
-                            editCommentId === comment.id ? 'text-primary-500 border-2 p-1' : '',
-                          )}
-                          variant='light'
-                          color='primary'
-                          size='sm'
-                          isIconOnly
-                        >
-                          <X className='h-6 w-6' />
-                        </Button>
-                      </div>
-                    )}
-
-                    <Button
-                      onPress={() => handleDeleteComment(comment.id)}
-                      disabled={isDeletingComment || editCommentId === comment.id}
-                      isDisabled={isDeletingComment || editCommentId === comment.id}
-                      radius='full'
-                      color='danger'
-                      variant='light'
-                      size='sm'
-                      isIconOnly
-                    >
-                      <Trash2 className='h-6 w-6' />
-                    </Button>
-                  </div>
+                      <Button
+                        onPress={() => handleDeleteComment(comment.id)}
+                        disabled={isDeletingComment || editCommentId === comment.id}
+                        isDisabled={isDeletingComment || editCommentId === comment.id}
+                        radius='full'
+                        color='danger'
+                        variant='light'
+                        size='sm'
+                        isIconOnly
+                      >
+                        <Trash2 className='h-6 w-6' />
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
                 <p className={cn('text-default-700', editCommentId === comment.id ? 'hidden' : '')}>
