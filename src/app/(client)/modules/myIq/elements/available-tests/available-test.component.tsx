@@ -2,33 +2,11 @@ import { Clock4, CopyCheck, LucideArrowRight } from 'lucide-react'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { BrainIcon, BrainLampIcon, MindPuzzleIcon, RelationsHandsIcon } from '@/app/(client)/shared/assets/icon'
 import { Button, Card, CardBody } from '@/app/(client)/shared/ui'
 
-interface IProps {}
+import { AVAILABLE_TESTS_MAP } from '../../my-iq.constants'
 
-const AVAILABLE_TESTS_MAP = {
-  iq_test: {
-    icon: <BrainIcon />,
-    time: '15',
-    questions: '25',
-  },
-  personality_test: {
-    icon: <BrainLampIcon />,
-    time: '20',
-    questions: '90',
-  },
-  love_style_test: {
-    icon: <RelationsHandsIcon />,
-    time: '30',
-    questions: '120',
-  },
-  career_test: {
-    icon: <MindPuzzleIcon />,
-    time: '25',
-    questions: '35',
-  },
-}
+interface IProps {}
 
 const AvailableTestComponent: FC<Readonly<IProps>> = async () => {
   const t = await getTranslations('myIq.availableTests')

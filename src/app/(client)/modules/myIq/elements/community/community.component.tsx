@@ -1,25 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { FacebookIcon, InstagramIcon, MetaIcon } from '@/app/(client)/shared/assets/icon'
 import { Link } from '@/pkg/libraries/locale'
 
-interface IProps {}
+import { COMMUNITY_LINKS } from '../../my-iq.constants'
 
-const links = [
-  {
-    icon: <MetaIcon className='mx-[0.685rem] h-12 w-6' />,
-    href: 'https://www.twitter.com/',
-  },
-  {
-    icon: <InstagramIcon className='mx-[0.685rem] h-12 w-6' />,
-    href: 'https://www.instagram.com/',
-  },
-  {
-    icon: <FacebookIcon className='mx-[0.685rem] h-12 w-6' />,
-    href: 'https://www.facebook.com/',
-  },
-]
+interface IProps {}
 
 const CommunityComponent: FC<Readonly<IProps>> = async () => {
   const t = await getTranslations('myIq.community')
@@ -34,7 +20,7 @@ const CommunityComponent: FC<Readonly<IProps>> = async () => {
         <p className='text-secondary-800 text-center text-sm lg:hidden'>{t('community_mobile_description')}</p>
       </div>
       <div className='flex w-full justify-center gap-3 md:w-fit md:justify-start'>
-        {links.map((link, index) => (
+        {COMMUNITY_LINKS.map((link, index) => (
           <Link
             key={link.href + index}
             className='text-secondary-800 max-h-12 rounded-xl border border-[#007AFF] bg-white px-3 shadow-md md:px-6'
