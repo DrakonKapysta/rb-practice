@@ -1,6 +1,8 @@
-import { createBrowserClient } from '@/pkg/integrations/supabase'
-import { SupabaseClient, User } from '@supabase/supabase-js'
 import { useEffect, useRef, useState } from 'react'
+
+import { SupabaseClient, User } from '@supabase/supabase-js'
+
+import { createBrowserClient } from '@/pkg/integrations/supabase'
 
 export const useAuth = () => {
   const supabaseRef = useRef<SupabaseClient>(createBrowserClient())
