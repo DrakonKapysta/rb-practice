@@ -12,7 +12,7 @@ import {
   updateCommentMutationOptions,
 } from '@/app/(client)/entities/api'
 import { IComment } from '@/app/(client)/entities/models'
-import { OopsMessageComponent } from '@/app/(client)/shared/ui'
+import { CommentAvatarComponent, CommentHeaderComponent, OopsMessageComponent } from '@/app/(client)/shared/ui'
 
 interface IProps {
   characterId: number
@@ -153,12 +153,7 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
 
   return (
     <Card className='text-secondary-500'>
-      <CardHeader>
-        <h3 className='flex items-center gap-2 text-xl font-semibold'>
-          <MessageSquare className='h-5 w-5' />
-          <span className='text-default-500'>Comments</span> ({comments.length})
-        </h3>
-      </CardHeader>
+      <CommentHeaderComponent commentsCount={comments.length} />
 
       <CardBody>
         {comments.length > 0 ? (
@@ -172,13 +167,7 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
                 )}
               >
                 <div className='mb-2 flex items-start justify-between'>
-                  <div className='flex items-center gap-2'>
-                    <div className='bg-primary-500 flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold text-white'>
-                      {comment.userId.substring(0, 2).toUpperCase()}
-                    </div>
-
-                    <span className='text-default-500 text-sm'>Anonymous</span>
-                  </div>
+                  <CommentAvatarComponent name={comment?.userId} />
 
                   <div className='flex items-center justify-center gap-3 overflow-hidden rounded-full'>
                     <Button
