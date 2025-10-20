@@ -1,6 +1,5 @@
-import { sql } from 'drizzle-orm'
-import { integer, pgPolicy, pgTable, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
-import { authenticatedRole, authUsers } from 'drizzle-orm/supabase'
+import { integer, pgTable, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { authUsers } from 'drizzle-orm/supabase'
 
 export const comments = pgTable('comments', {
   id: serial('id').primaryKey(),
