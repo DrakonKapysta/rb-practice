@@ -30,12 +30,17 @@ export const createCommentMutationOptions = () => {
 
 export const deleteCommentMutatationOptions = () => {
   return mutationOptions({
-    mutationFn: (commentId: number) => deleteComment(commentId),
+    mutationFn: ({ commentId, characterId }: { commentId: number; characterId?: number }) =>
+      deleteComment(commentId, characterId),
 
-    onSuccess: async (commentId) => {
-      if (commentId) {
+    onSuccess: async (commentDeleteResult) => {
+      if (commentDeleteResult.result?.characterId) {
         await queryClient.invalidateQueries({
-          queryKey: [ECommentQueryKey.COMMENTS_CHARACTER_ID, commentId],
+          queryKey: [ECommentQueryKey.COMMENTS_CHARACTER_ID, commentDeleteResult.result?.characterId],
+        })
+      } else if (commentDeleteResult.result?.deletedId) {
+        await queryClient.invalidateQueries({
+          queryKey: [ECommentQueryKey.COMMENTS, commentDeleteResult.result?.deletedId],
         })
       }
     },
@@ -56,7 +61,7 @@ export const updateCommentMutationOptions = () => {
     onSuccess: async (comment) => {
       if (comment) {
         await queryClient.invalidateQueries({
-          queryKey: [ECommentQueryKey.COMMENTS_CHARACTER_ID, comment.characterId],
+          queryKey: [ECommentQueryKey.COMMENTS_CHARACTER_ID, comment.result?.characterId],
         })
       }
     },

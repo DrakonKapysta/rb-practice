@@ -2,33 +2,11 @@ import { Clock4, CopyCheck, LucideArrowRight } from 'lucide-react'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { BrainIcon, BrainLampIcon, MindPuzzleIcon, RelationsHandsIcon } from '@/app/(client)/shared/assets/icon'
 import { Button, Card, CardBody } from '@/app/(client)/shared/ui'
 
-interface IProps {}
+import { AVAILABLE_TESTS_MAP } from '../../my-iq.constants'
 
-const AVAILABLE_TESTS_MAP = {
-  iq_test: {
-    icon: <BrainIcon />,
-    time: '15',
-    questions: '25',
-  },
-  personality_test: {
-    icon: <BrainLampIcon />,
-    time: '20',
-    questions: '90',
-  },
-  love_style_test: {
-    icon: <RelationsHandsIcon />,
-    time: '30',
-    questions: '120',
-  },
-  career_test: {
-    icon: <MindPuzzleIcon />,
-    time: '25',
-    questions: '35',
-  },
-}
+interface IProps {}
 
 const AvailableTestComponent: FC<Readonly<IProps>> = async () => {
   const t = await getTranslations('myIq.availableTests')
@@ -49,14 +27,13 @@ const AvailableTestComponent: FC<Readonly<IProps>> = async () => {
 
           return (
             <Card key={key} className='border border-[#D9E7FF]'>
-              <CardBody className='flex flex-col items-center gap-3 px-4 py-6 md:items-start'>
+              <CardBody className='flex h-full flex-col items-center gap-3 px-4 py-6 md:items-start'>
                 {mappedItem.icon}
-
                 <p className='text-secondary-800 text-start text-lg font-semibold'>
                   {t(`available_tests_items.${key}.title`)}
                 </p>
 
-                <div className='flex flex-wrap gap-x-4 gap-y-2 text-sm'>
+                <div className='flex flex-wrap gap-x-4 gap-y-2'>
                   <span className='text-secondary-500/80 flex items-center gap-2'>
                     <Clock4 size={16} /> {mappedItem.time} {t('time')}
                   </span>
@@ -65,20 +42,21 @@ const AvailableTestComponent: FC<Readonly<IProps>> = async () => {
                     <CopyCheck size={16} /> {mappedItem.questions} {t('questions')}
                   </span>
                 </div>
-
-                <Button
-                  radius='md'
-                  color='primary'
-                  className='h-12 w-full px-6 py-2 text-sm whitespace-normal xl:text-base'
-                  isDisabled={index === itemKeys.length - 1}
-                  endContent={
-                    index !== itemKeys.length - 1 && (
-                      <LucideArrowRight className='h-4.5 w-4.5' size={16} strokeWidth={3} />
-                    )
-                  }
-                >
-                  {t(`available_tests_items.${key}.button_title`)}
-                </Button>
+                <div className='flex w-full flex-1 items-end'>
+                  <Button
+                    radius='md'
+                    color='primary'
+                    className='h-12 w-full px-6 py-2 text-sm whitespace-normal xl:text-base'
+                    isDisabled={index === itemKeys.length - 1}
+                    endContent={
+                      index !== itemKeys.length - 1 && (
+                        <LucideArrowRight className='h-4.5 w-4.5' size={16} strokeWidth={3} />
+                      )
+                    }
+                  >
+                    {t(`available_tests_items.${key}.button_title`)}
+                  </Button>
+                </div>
               </CardBody>
             </Card>
           )

@@ -10,7 +10,7 @@ export interface IComment {
   userId: string
 }
 
-export interface ICommentMutationResult {
+export interface ICommentMutationCreateResult {
   success: boolean
   error?: string
   result?: IComment
@@ -19,6 +19,26 @@ export interface ICommentMutationResult {
 export interface ICreateComment {
   content: string
   characterId: number
+}
+
+export interface IDeleteComment {
+  commentId: number
+  characterId?: number
+}
+
+export interface ICommentMutationDeleteResult {
+  success: boolean
+  error?: string
+  result?: {
+    deletedId: number
+    characterId?: number
+  }
+}
+
+export interface ICommentMutationUpdateResult {
+  success: boolean
+  error?: string
+  result?: IComment
 }
 
 export interface IUpdateCommnent extends Partial<ICreateComment> {}

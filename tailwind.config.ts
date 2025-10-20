@@ -10,6 +10,7 @@ const config: Config = {
     screens: {
       xxs: '364px',
       xs: '480px',
+      xxl: '1328px',
     },
   },
   plugins: [

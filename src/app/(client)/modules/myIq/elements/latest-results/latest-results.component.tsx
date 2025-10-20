@@ -1,81 +1,12 @@
-'use client'
-import BY from 'country-flag-icons/react/3x2/BY'
-import PL from 'country-flag-icons/react/3x2/PL'
-import RO from 'country-flag-icons/react/3x2/RO'
-import UA from 'country-flag-icons/react/3x2/UA'
-import US from 'country-flag-icons/react/3x2/US'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import type { FC } from 'react'
+
+import { COUNTRIES, LATEST_RESULTS_ITEMS } from '../../my-iq.constants'
 
 interface IProps {}
 
-const LATEST_RESULTS_ITEMS = {
-  items: [
-    {
-      name: 'Roman Kharchenko',
-      iq: 98,
-      country: 'RO',
-    },
-    {
-      name: 'Dmitrii Dovhalenko',
-      iq: 104,
-      country: 'BY',
-    },
-
-    {
-      name: 'Jan Kowalski',
-      iq: 102,
-      country: 'PL',
-    },
-
-    {
-      name: 'Oleksandr Fedorov',
-      iq: 106,
-      country: 'UA',
-    },
-
-    {
-      name: 'John Doe',
-      iq: 106,
-      country: 'US',
-    },
-
-    {
-      name: 'Jane Doe',
-      iq: 106,
-      country: 'US',
-    },
-
-    {
-      name: 'Taras Tarasenko',
-      iq: 106,
-      country: 'UA',
-    },
-
-    {
-      name: 'Yaroslav Yaroslavenko',
-      iq: 106,
-      country: 'RO',
-    },
-
-    {
-      name: 'Andrii Andrienko',
-      iq: 106,
-      country: 'UA',
-    },
-  ] as const,
-}
-
-const COUNTRIES = {
-  UA: <UA title='Ukraine' />,
-  RO: <RO title='Romania' />,
-  BY: <BY title='Belarus' />,
-  PL: <PL title='Poland' />,
-  US: <US title='United States' />,
-} as const
-
-const LatestResultsComponent: FC<Readonly<IProps>> = () => {
-  const t = useTranslations('myIq.latestResults')
+const LatestResultsComponent: FC<Readonly<IProps>> = async () => {
+  const t = await getTranslations('myIq.latestResults')
 
   return (
     <section className='pt-6 md:pt-10'>

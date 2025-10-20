@@ -7,7 +7,7 @@ import { addToast, Button, Card, CardBody, CardHeader } from '@heroui/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { EmailInput, PasswordInput } from '@/app/(client)/shared/ui'
-import { signup } from '@/pkg/integrations/supabase'
+import { signup } from '@/client/entities/api/auth'
 
 import { RegisterFormSchema, RegisterFormSchemaType } from './register-form.interface'
 

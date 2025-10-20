@@ -1,16 +1,11 @@
 import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
-import { CheckListIcon, DetailedReportIcon, RocketIcon } from '@/app/(client)/shared/assets/icon'
 import { Card, CardBody } from '@/app/(client)/shared/ui'
 
-interface IProps {}
+import { ICON_MAP } from '../../my-iq.constants'
 
-const ICON_MAP = {
-  checklist: <CheckListIcon />,
-  report: <DetailedReportIcon />,
-  rocket: <RocketIcon />,
-} as const
+interface IProps {}
 
 const HowItWorksComponent: FC<Readonly<IProps>> = async () => {
   const t = await getTranslations('myIq.sections')

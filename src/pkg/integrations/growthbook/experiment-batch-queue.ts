@@ -29,7 +29,7 @@ class ExperimentBatchQueue {
     return ExperimentBatchQueue.instance
   }
 
-  public addEvent(experiment: Experiment<unknown>, result: Result<unknown>, distinct_id?: string): void {
+  public addEvent(experiment: Experiment<unknown>, result: Result<unknown>): void {
     const variation = result.key || String(result.variationId)
     const dedupKey = `${experiment.key}:${variation}`
 
@@ -58,15 +58,15 @@ class ExperimentBatchQueue {
     }
 
     if (this.queue.length >= this.FLUSH_BATCH_SIZE) {
-      this.flush(distinct_id)
+      this.flush()
     } else {
       this.flushTimeout = setTimeout(() => {
-        this.flush(distinct_id)
+        this.flush()
       }, this.FLUSH_DELAY)
     }
   }
 
-  private flush(distinct_id?: string): void {
+  private flush(): void {
     if (this.queue.length === 0) return
 
     const eventsToSend = [...this.queue]
@@ -77,17 +77,17 @@ class ExperimentBatchQueue {
       this.flushTimeout = null
     }
 
-    this.sendEvents(eventsToSend, distinct_id)
+    this.sendEvents(eventsToSend)
   }
 
-  private async sendEvents(eventsToSend: ExperimentEvent[], distinct_id?: string): Promise<void> {
+  private async sendEvents(eventsToSend: ExperimentEvent[]): Promise<void> {
     try {
       const events = eventsToSend.map(({ experiment, result }) => ({
         event: 'experiment_viewed' as const,
         properties: {
           experiment: experiment.key,
           variation: result.key || String(result.variationId),
-          distinct_id,
+          distinct_id: result.hashValue,
         },
       }))
 

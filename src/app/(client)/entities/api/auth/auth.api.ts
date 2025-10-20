@@ -4,7 +4,7 @@ import { getLocale } from 'next-intl/server'
 
 import { redirect } from '@/pkg/libraries/locale'
 
-import { createServerClient } from './index'
+import { createServerClient } from '@/pkg/integrations/supabase'
 
 export async function login(formData: FormData) {
   const supabase = await createServerClient()
