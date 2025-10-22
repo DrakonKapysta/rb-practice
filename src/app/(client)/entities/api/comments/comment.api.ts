@@ -76,7 +76,7 @@ export async function createComment(comment: ICreateComment): Promise<ICommentMu
     const user = await supabase.auth.getUser()
 
     if (!user.data.user?.id) {
-      return { success: false, error: 'User not authenticated' }
+      return { success: false, error: { message: 'User not authenticated', statusCode: 401 } }
     }
 
     const commentData = {
@@ -93,7 +93,7 @@ export async function createComment(comment: ICreateComment): Promise<ICommentMu
       tags: { characterId: comment.characterId, function: 'CommentApi.createComment', type: 'database_error' },
     })
 
-    return { success: false, error: 'Failed to create comment' }
+    return { success: false, error: { message: 'Failed to create comment', statusCode: 500 } }
   }
 }
 
@@ -147,7 +147,7 @@ export async function deleteComment(commentId: number, characterId?: number): Pr
     const deletedId = await db.delete(comments).where(eq(comments.id, commentId)).returning({ deletedId: comments.id })
 
     if (!deletedId || deletedId.length === 0) {
-      return { success: false, error: 'Failed to delete comment' }
+      return { success: false, error: { message: 'Failed to delete comment', statusCode: 500 } }
     }
 
     if (characterId) {
@@ -160,7 +160,7 @@ export async function deleteComment(commentId: number, characterId?: number): Pr
       tags: { commentId, function: 'CommentApi.deleteComment', type: 'database_error' },
     })
 
-    return { success: false, error: 'Failed to delete comment' }
+    return { success: false, error: { message: 'Failed to delete comment', statusCode: 500 } }
   }
 }
 
@@ -176,7 +176,7 @@ export async function updateComment(
       .returning()
 
     if (!updatedCommnet || updatedCommnet.length === 0) {
-      return { success: false, error: 'Failed to update comment' }
+      return { success: false, error: { message: 'Failed to update comment', statusCode: 500 } }
     }
 
     revalidateTag(`comments-character-id-${comment.characterId}`)
@@ -187,6 +187,6 @@ export async function updateComment(
       tags: { commentId, function: 'CommentApi.updateComment', type: 'database_error' },
     })
 
-    return { success: false, error: 'Failed to update comment' }
+    return { success: false, error: { message: 'Failed to update comment', statusCode: 500 } }
   }
 }

@@ -52,6 +52,7 @@ const LanguageSwitcherComponent = () => {
           >
             <div className='flex items-center justify-between gap-2'>
               <span>{LANGUAGE_SWITCHER_KEYS_LABELS[loc]}</span>
+
               {locale === loc && <Check className='-mr-6 inline-block' size={18} />}
             </div>
           </DropdownItem>

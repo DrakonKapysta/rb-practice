@@ -34,14 +34,15 @@ const CharacterCommentFormComponent: FC<Readonly<IProps>> = ({ characterId }) =>
   })
 
   const onSubmit = async (data: ICreateCommentForm) => {
-    await createComment(data)
+    const result = await createComment(data)
 
-    if (error) {
-      return addToast({
+    if (!result.success || error) {
+      addToast({
         title: 'Error',
-        description: 'An error occurred while creating the comment',
+        description: result.error?.message || 'An error occurred while creating the comment',
         color: 'danger',
       })
+      return
     }
 
     addToast({
