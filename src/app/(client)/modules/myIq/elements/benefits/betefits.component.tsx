@@ -1,15 +1,15 @@
-import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
 import { EdgedBadgeIcon } from '@/app/(client)/shared/assets/icon'
 import { Card, CardBody, ScrollShadow } from '@/app/(client)/shared/ui'
+import { useMessages, useTranslations } from 'next-intl'
 
 interface IProps {}
 
-const BenefitsComponent: FC<Readonly<IProps>> = async () => {
-  const t = await getTranslations('myIq.benefits')
+const BenefitsComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.benefits')
 
-  const messages = await getMessages()
+  const messages = useMessages()
 
   const itemKeys = Object.keys(messages.myIq.benefits.benefits_items)
 

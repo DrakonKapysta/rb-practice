@@ -6,12 +6,14 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 import { charactersQueryOptions } from '@/app/(client)/entities/api'
 import { HomeModule } from '@/app/(client)/modules/home'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
-
-export const revalidate = 120
+import { cacheLife } from 'next/cache'
 
 interface IProps extends PageProps<'/[locale]'> {}
 
 const Page: FC<Readonly<IProps>> = async (props) => {
+  'use cache'
+  cacheLife('default')
+
   const { locale } = await props.params
 
   setRequestLocale(locale)

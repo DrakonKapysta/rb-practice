@@ -9,8 +9,7 @@ import { HomeBannerModule } from '@/app/(client)/modules/experiments/home-banner
 import { charactersFlags, showCharactersBanner, showCharactersFooter } from '@/pkg/integrations/growthbook'
 import { FeatureStoreProvider } from '@/pkg/libraries/feature'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
-
-export const revalidate = 120
+import { cacheLife } from 'next/cache'
 
 interface IProps extends PageProps<'/[locale]/features/[code]'> {}
 
@@ -23,6 +22,9 @@ export async function generateStaticParams() {
 }
 
 const Page: FC<Readonly<IProps>> = async (props) => {
+  'use cache'
+  cacheLife('minutes')
+
   const { locale, code } = await props.params
 
   setRequestLocale(locale)

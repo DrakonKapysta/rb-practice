@@ -1,14 +1,14 @@
-import { getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
 import { Link } from '@/pkg/libraries/locale'
 
 import { COMMUNITY_LINKS } from '../../my-iq.constants'
+import { useTranslations } from 'next-intl'
 
 interface IProps {}
 
-const CommunityComponent: FC<Readonly<IProps>> = async () => {
-  const t = await getTranslations('myIq.community')
+const CommunityComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.community')
 
   return (
     <section className='text-secondary-800/70 relative z-0 -mt-2 flex flex-col items-center justify-between gap-3 py-6 md:flex-row md:py-10'>

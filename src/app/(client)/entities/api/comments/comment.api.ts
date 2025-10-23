@@ -1,7 +1,7 @@
 'use server'
 
 import { and, asc, desc, eq, ilike, sql } from 'drizzle-orm'
-import { revalidateTag, unstable_cache } from 'next/cache'
+import { cacheLife, cacheTag, revalidateTag, unstable_cache, updateTag } from 'next/cache'
 
 import { captureException } from '@sentry/nextjs'
 
@@ -17,57 +17,51 @@ import { createServerClient } from '@/pkg/integrations/supabase'
 import { comments, db, withPagination } from '@/pkg/libraries/db'
 
 export async function getCommentById(commentId: number) {
-  return unstable_cache(
-    async () => {
-      try {
-        const result = await db.select().from(comments).where(eq(comments.id, commentId))
+  'use cache'
+  cacheLife('max')
+  cacheTag(`comments-id-${commentId}`)
 
-        return result
-      } catch (error) {
-        captureException(error, {
-          tags: { characterId: commentId, function: 'CommentApi.getCommentById', type: 'database_error' },
-        })
+  try {
+    const result = await db.select().from(comments).where(eq(comments.id, commentId))
 
-        throw error
-      }
-    },
-    [`comment-by-id-${commentId}`],
+    return result
+  } catch (error) {
+    captureException(error, {
+      tags: { characterId: commentId, function: 'CommentApi.getCommentById', type: 'database_error' },
+    })
 
-    { revalidate: 60, tags: [`comments-id-${commentId}`] },
-  )()
+    throw error
+  }
 }
 
 export async function getCommentsByCharacterId(characterId: number, filters?: ICommentsFilters) {
-  return unstable_cache(
-    async () => {
-      try {
-        let query = db
-          .select()
-          .from(comments)
-          .where(
-            and(
-              eq(comments.characterId, characterId),
-              filters?.search ? ilike(comments.content, `%${filters?.search}%`) : undefined,
-            ),
-          )
-          .orderBy(filters?.orderDirection === 'asc' ? asc(comments.createdAt) : desc(comments.createdAt))
-          .$dynamic()
+  'use cache'
+  cacheLife('max')
+  cacheTag(`comments-character-id-${characterId}`)
 
-        query = withPagination(query, filters?.offset, filters?.limit)
+  try {
+    let query = db
+      .select()
+      .from(comments)
+      .where(
+        and(
+          eq(comments.characterId, characterId),
+          filters?.search ? ilike(comments.content, `%${filters?.search}%`) : undefined,
+        ),
+      )
+      .orderBy(filters?.orderDirection === 'asc' ? asc(comments.createdAt) : desc(comments.createdAt))
+      .$dynamic()
 
-        return await query.execute()
-      } catch (error) {
-        captureException(error, {
-          tags: { characterId: characterId, function: 'CommentApi.getCommentsByCharacterId', type: 'database_error' },
-        })
+    query = withPagination(query, filters?.offset, filters?.limit)
 
-        throw error
-      }
-    },
-    [`comments-by-character-id-${characterId}`],
+    return await query.execute()
+  } catch (error) {
+    captureException(error, {
+      tags: { characterId: characterId, function: 'CommentApi.getCommentsByCharacterId', type: 'database_error' },
+    })
 
-    { revalidate: 60, tags: [`comments-character-id-${characterId}`] },
-  )()
+    throw error
+  }
 }
 
 export async function createComment(comment: ICreateComment): Promise<ICommentMutationCreateResult> {
@@ -85,7 +79,7 @@ export async function createComment(comment: ICreateComment): Promise<ICommentMu
     }
     const result = await db.insert(comments).values(commentData).returning()
 
-    revalidateTag(`comments-character-id-${comment.characterId}`)
+    updateTag(`comments-character-id-${comment.characterId}`)
 
     return { success: true, result: result[0] }
   } catch (error) {
@@ -98,48 +92,45 @@ export async function createComment(comment: ICreateComment): Promise<ICommentMu
 }
 
 export async function getComments(filters?: ICommentsFilters) {
-  return unstable_cache(
-    async () => {
-      try {
-        if (!filters) {
-          let query = db.select().from(comments).$dynamic()
-          query = withPagination(query, 1, 10)
-          return await query
-        }
+  'use cache'
+  cacheLife('max')
+  cacheTag(`comments-list`, JSON.stringify(filters))
 
-        let query = db
-          .select()
-          .from(comments)
-          .where(
-            and(
-              filters.characterId ? eq(comments.characterId, filters?.characterId) : undefined,
-              filters.commentId ? eq(comments.id, parseInt(filters?.commentId)) : undefined,
-              filters.search ? ilike(comments.content, `%${filters?.search}%`) : undefined,
-            ),
-          )
-          .orderBy(filters?.orderDirection === 'asc' ? asc(comments.createdAt) : desc(comments.createdAt))
-          .$dynamic()
+  try {
+    if (!filters) {
+      let query = db.select().from(comments).$dynamic()
+      query = withPagination(query, 1, 10)
+      return await query
+    }
 
-        query = withPagination(query, filters.offset, filters?.limit)
+    let query = db
+      .select()
+      .from(comments)
+      .where(
+        and(
+          filters.characterId ? eq(comments.characterId, filters?.characterId) : undefined,
+          filters.commentId ? eq(comments.id, parseInt(filters?.commentId)) : undefined,
+          filters.search ? ilike(comments.content, `%${filters?.search}%`) : undefined,
+        ),
+      )
+      .orderBy(filters?.orderDirection === 'asc' ? asc(comments.createdAt) : desc(comments.createdAt))
+      .$dynamic()
 
-        return await query
-      } catch (error) {
-        captureException(error, {
-          tags: {
-            ...filters,
+    query = withPagination(query, filters.offset, filters?.limit)
 
-            function: 'CommentApi.getComments',
-            type: 'database_error',
-          },
-        })
+    return await query
+  } catch (error) {
+    captureException(error, {
+      tags: {
+        ...filters,
 
-        throw error
-      }
-    },
-    [`comments`, JSON.stringify(filters)],
+        function: 'CommentApi.getComments',
+        type: 'database_error',
+      },
+    })
 
-    { revalidate: 60, tags: [`comments-with-filters`, JSON.stringify(filters)] },
-  )()
+    throw error
+  }
 }
 
 export async function deleteComment(commentId: number, characterId?: number): Promise<ICommentMutationDeleteResult> {
@@ -151,7 +142,7 @@ export async function deleteComment(commentId: number, characterId?: number): Pr
     }
 
     if (characterId) {
-      revalidateTag(`comments-character-id-${characterId}`)
+      updateTag(`comments-character-id-${characterId}`)
     }
 
     return { success: true, result: { deletedId: deletedId[0].deletedId, characterId } }
@@ -179,7 +170,7 @@ export async function updateComment(
       return { success: false, error: { message: 'Failed to update comment', statusCode: 500 } }
     }
 
-    revalidateTag(`comments-character-id-${comment.characterId}`)
+    updateTag(`comments-character-id-${comment.characterId}`)
 
     return { success: true, result: updatedCommnet[0] }
   } catch (error) {

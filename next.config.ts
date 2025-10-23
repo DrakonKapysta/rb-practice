@@ -14,6 +14,8 @@ const withNextIntl = createNextIntlPlugin({
 const nextConfig: NextConfig = {
   output: 'standalone',
 
+  cacheComponents: true,
+
   poweredByHeader: false,
   cacheMaxMemorySize: 100 * 1024 * 1024,
 
@@ -34,7 +36,8 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['pino', 'pino-pretty'],
 
   experimental: {
-    reactCompiler: true,
+    turbopackFileSystemCacheForDev: true,
+
     optimizeServerReact: true,
     optimizePackageImports: [
       'zod',
@@ -110,4 +113,6 @@ const sentryConfig: SentryBuildOptions = {
   disableLogger: true,
 }
 
-export default withSentryConfig(withNextIntl(nextConfig), sentryConfig)
+export default withNextIntl(nextConfig)
+
+// export default withSentryConfig(withNextIntl(nextConfig), sentryConfig)

@@ -1,12 +1,12 @@
-import { getTranslations } from 'next-intl/server'
 import type { FC } from 'react'
 
 import { COUNTRIES, LATEST_RESULTS_ITEMS } from '../../my-iq.constants'
+import { useTranslations } from 'next-intl'
 
 interface IProps {}
 
-const LatestResultsComponent: FC<Readonly<IProps>> = async () => {
-  const t = await getTranslations('myIq.latestResults')
+const LatestResultsComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.latestResults')
 
   return (
     <section className='pt-6 md:pt-10'>

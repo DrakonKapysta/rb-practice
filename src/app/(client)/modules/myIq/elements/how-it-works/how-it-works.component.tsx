@@ -1,16 +1,16 @@
-import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
 import { Card, CardBody } from '@/app/(client)/shared/ui'
 
 import { ICON_MAP } from '../../my-iq.constants'
+import { useMessages, useTranslations } from 'next-intl'
 
 interface IProps {}
 
-const HowItWorksComponent: FC<Readonly<IProps>> = async () => {
-  const t = await getTranslations('myIq.sections')
+const HowItWorksComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.sections')
 
-  const messages = await getMessages()
+  const messages = useMessages()
 
   const itemKeys = Object.keys(messages.myIq.sections.how_it_works_items)
 

@@ -1,17 +1,17 @@
 import { Check } from 'lucide-react'
-import { getMessages, getTranslations } from 'next-intl/server'
 import { FC } from 'react'
 
 import { Divider } from '@heroui/react'
 
 import { Button, Card, CardBody, CardFooter, CardHeader } from '@/app/(client)/shared/ui'
 import { Link } from '@/pkg/libraries/locale'
+import { useMessages, useTranslations } from 'next-intl'
 interface IProps {}
 
-const PlanComponent: FC<Readonly<IProps>> = async () => {
-  const t = await getTranslations('myIq.plans')
+const PlanComponent: FC<Readonly<IProps>> = () => {
+  const t = useTranslations('myIq.plans')
 
-  const messages = await getMessages()
+  const messages = useMessages()
 
   const itemKeys = Object.keys(messages.myIq.plans.plans_items)
 

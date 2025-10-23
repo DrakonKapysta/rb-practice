@@ -1,5 +1,4 @@
 import { ArrowRight, Star } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
 
 import { cn } from '@heroui/react'
 
@@ -7,9 +6,10 @@ import { RarityGraphIcon } from '@/app/(client)/shared/assets/icon'
 import { Avatar, Button } from '@/app/(client)/shared/ui'
 
 import { AVATARS } from '../../my-iq.constants'
+import { useTranslations } from 'next-intl'
 
-const HeroSectionComponent = async () => {
-  const t = await getTranslations('myIq.hero')
+const HeroSectionComponent = () => {
+  const t = useTranslations('myIq.hero')
 
   return (
     <section className='relative z-0 flex h-full w-full flex-col gap-2'>

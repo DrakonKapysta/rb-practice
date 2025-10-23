@@ -33,7 +33,9 @@ const eslintConfig = [
       prettier: prettierPlugin,
       react,
     },
-    languageOptions: { parser: tsParser },
+    languageOptions: {
+      parser: tsParser,
+    },
     rules: {
       'prettier/prettier': 'warn',
       'simple-import-sort/imports': [

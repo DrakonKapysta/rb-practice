@@ -1,15 +1,16 @@
 import { notFound } from 'next/navigation'
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
 
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
 
 import { characterByIdQueryOptions, getCharacters } from '@/app/(client)/entities/api'
 import { CharacterDetailComponent } from '@/app/(client)/widgets/character-detail'
 import { getQueryClient } from '@/pkg/libraries/rest-api'
+import { cacheLife } from 'next/cache'
+
+import { Spinner } from '@/app/(client)/shared/ui'
 
 interface IProps extends PageProps<'/[locale]/character/[slug]'> {}
-
-export const revalidate = 30
 
 export async function generateStaticParams() {
   const characters = await getCharacters()
@@ -20,6 +21,9 @@ export async function generateStaticParams() {
 }
 
 const CharacterPage: FC<Readonly<IProps>> = async (props) => {
+  'use cache'
+  cacheLife('minutes')
+
   const characterId = parseInt((await props.params).slug)
 
   const queryClient = getQueryClient()
@@ -34,7 +38,9 @@ const CharacterPage: FC<Readonly<IProps>> = async (props) => {
     <div className='min-h-screen p-8 pb-20'>
       <div className='mx-auto max-w-7xl'>
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <CharacterDetailComponent characterId={characterId} />
+          <Suspense fallback={<Spinner />}>
+            <CharacterDetailComponent characterId={characterId} />
+          </Suspense>
         </HydrationBoundary>
       </div>
     </div>

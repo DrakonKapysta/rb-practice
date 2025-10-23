@@ -9,7 +9,7 @@ import { updateSession } from './pkg/integrations/supabase'
 
 const featurePages = ['/features']
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const i18nRes = createMiddleware(routing)(req)
 
   const headerLocale = i18nRes.headers.get('x-middleware-request-x-next-intl-locale')
