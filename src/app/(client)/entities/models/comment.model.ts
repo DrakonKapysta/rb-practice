@@ -1,3 +1,5 @@
+import { IResult } from '@/client/shared/interfaces'
+
 export enum ECommentQueryKey {
   COMMENTS = 'comments',
   COMMENTS_CHARACTER_ID = 'comments-character-id',
@@ -10,9 +12,7 @@ export interface IComment {
   userId: string
 }
 
-export interface ICommentMutationCreateResult {
-  success: boolean
-  error?: string
+export interface ICommentMutationCreateResult extends IResult<IComment> {
   result?: IComment
 }
 
@@ -26,18 +26,18 @@ export interface IDeleteComment {
   characterId?: number
 }
 
-export interface ICommentMutationDeleteResult {
-  success: boolean
-  error?: string
+export interface ICommentMutationDeleteResult
+  extends IResult<{
+    deletedId: number
+    characterId?: number
+  }> {
   result?: {
     deletedId: number
     characterId?: number
   }
 }
 
-export interface ICommentMutationUpdateResult {
-  success: boolean
-  error?: string
+export interface ICommentMutationUpdateResult extends IResult<IComment> {
   result?: IComment
 }
 

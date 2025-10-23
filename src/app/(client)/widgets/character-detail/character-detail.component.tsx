@@ -8,13 +8,13 @@ import { Button, Spinner } from '@heroui/react'
 import { useQuery } from '@tanstack/react-query'
 
 import { characterByIdQueryOptions } from '@/app/(client)/entities/api'
-import { CharacterCommentComponent } from '@/app/(client)/features/character-comment'
-import { CharacterCommentFormComponent } from '@/app/(client)/features/character-comment-form'
 import { OopsMessageComponent } from '@/app/(client)/shared/ui'
+import { CharacterCommentComponent } from '@/app/(client)/widgets/character-detail/elements/character-comment'
 import { Link, useRouter } from '@/pkg/libraries/locale'
 
 import {
   BasicInformationComponent,
+  CharacterCommentFormComponent,
   CharacterHeaderComponent,
   CharacterImageComponent,
   EpisodesInformationComponent,

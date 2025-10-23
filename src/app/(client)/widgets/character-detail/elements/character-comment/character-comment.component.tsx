@@ -3,7 +3,7 @@
 import { Edit, MessageSquare, Save, Trash2, X } from 'lucide-react'
 import { FC, useRef, useState } from 'react'
 
-import { addToast, Button, Card, CardBody, CardHeader, cn, Spinner, Textarea } from '@heroui/react'
+import { addToast, Button, Card, CardBody, cn, Textarea } from '@heroui/react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 import {
@@ -13,7 +13,7 @@ import {
 } from '@/app/(client)/entities/api'
 import { IComment } from '@/app/(client)/entities/models'
 import { useAuth } from '@/app/(client)/shared/hooks'
-import { CommentAvatarComponent, CommentHeaderComponent, OopsMessageComponent } from '@/app/(client)/shared/ui'
+import { CommentAvatarComponent, CommentHeaderComponent, StatusCardComponent } from '@/app/(client)/shared/ui'
 
 interface IProps {
   characterId: number
@@ -50,13 +50,13 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
   const handleDeleteComment = async (commentId: number) => {
     setDeleteCommentId(commentId)
 
-    await deleteComment({ commentId, characterId })
+    const result = await deleteComment({ commentId, characterId })
 
-    if (deleteCommentError) {
+    if (!result.success || deleteCommentError) {
       setDeleteCommentId(null)
       return addToast({
         title: 'Error',
-        description: 'An error occurred while deleting the comment',
+        description: result.error?.message || 'An error occurred while deleting the comment',
         color: 'danger',
       })
     }
@@ -66,6 +66,8 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
       description: 'Comment deleted successfully',
       color: 'success',
     })
+
+    setDeleteCommentId(null)
   }
 
   const handleStartEditComment = (commentId: number) => {
@@ -81,16 +83,16 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   const handleSaveEditComment = async (comment: IComment) => {
-    await updateComment({
+    const result = await updateComment({
       commentId: comment.id,
       comment: { content: textareaRef.current?.value || comment.content, characterId: comment.characterId },
     })
 
-    if (updateCommentError) {
+    if (!result.success || updateCommentError) {
       setEditCommentId(null)
       return addToast({
         title: 'Error',
-        description: 'An error occurred while updating the comment',
+        description: result.error?.message || 'An error occurred while updating the comment',
         color: 'danger',
       })
     }
@@ -105,57 +107,15 @@ const CharacterCommentComponent: FC<Readonly<IProps>> = (props) => {
   }
 
   if (isLoading) {
-    return (
-      <Card className='text-secondary-500'>
-        <CardHeader>
-          <h3 className='flex items-center gap-2 text-xl font-semibold'>
-            <MessageSquare className='h-5 w-5' />
-
-            <span className='text-default-500'>Comments</span>
-          </h3>
-        </CardHeader>
-
-        <CardBody className='flex items-center justify-center py-8'>
-          <Spinner />
-        </CardBody>
-      </Card>
-    )
+    return <StatusCardComponent statusTitle='Comments' showLoader={true} />
   }
 
   if (error) {
-    return (
-      <Card className='text-secondary-500'>
-        <CardHeader>
-          <h3 className='flex items-center gap-2 text-xl font-semibold'>
-            <MessageSquare className='h-5 w-5' />
-
-            <span className='text-default-500'>Comments</span>
-          </h3>
-        </CardHeader>
-
-        <CardBody>
-          <OopsMessageComponent message='An error occurred while fetching comments.' />
-        </CardBody>
-      </Card>
-    )
+    return <StatusCardComponent statusTitle='Comments' oopsMessage='An error occurred while fetching comments.' />
   }
 
   if (!comments || comments.length === 0) {
-    return (
-      <Card className='text-secondary-500'>
-        <CardHeader>
-          <h3 className='flex items-center gap-2 text-xl font-semibold'>
-            <MessageSquare className='h-5 w-5' />
-
-            <span className='text-default-500'>Comments</span>
-          </h3>
-        </CardHeader>
-
-        <CardBody>
-          <OopsMessageComponent message='No comments yet.' />
-        </CardBody>
-      </Card>
-    )
+    return <StatusCardComponent statusTitle='Comments' oopsMessage='No comments yet' />
   }
 
   return (
